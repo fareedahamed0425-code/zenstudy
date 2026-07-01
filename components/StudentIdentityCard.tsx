@@ -99,7 +99,7 @@ export const StudentIdentityCard: React.FC<StudentIdentityCardProps> = ({
   return (
     <div 
       className="relative overflow-hidden text-white w-full max-w-[280px] bg-slate-900/60 dark:bg-slate-950/40 backdrop-blur-md 
-                 border border-white/10 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm flex flex-col transition-all duration-300"
+                 border border-white/10 dark:border-slate-800/80 rounded-2xl p-4 shadow-sm flex flex-col premium-hover glow-border"
     >
       {/* Hidden file input */}
       <input
@@ -193,7 +193,7 @@ export const StudentIdentityCard: React.FC<StudentIdentityCardProps> = ({
           <div className="flex items-center gap-2">
             <div className="w-16 bg-white/10 rounded-full h-1.5 overflow-hidden border border-white/5">
               <div 
-                className="bg-indigo-500 h-full transition-all duration-500" 
+                className="bg-indigo-500 h-full transition-all duration-500 shadow-[0_0_8px_rgba(99,102,241,0.8)]" 
                 style={{ width: `${Math.min(100, goalCompletionRate)}%` }}
               ></div>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SavedNote } from '../types';
 import { simplifyNotes } from '../services/aiService';
+import { BookOpen, Inbox, Calendar, Sparkles, Heading, List, Bold, Archive } from 'lucide-react';
 
 export const NotesSimplifier: React.FC = () => {
   const [notes, setNotes] = useState('');
@@ -66,72 +67,72 @@ export const NotesSimplifier: React.FC = () => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 animate-fade-in">
       <div className="lg:col-span-8 space-y-4">
-        <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl p-4.5 md:p-5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800/80">
+        <div className="bento-card p-6 md:p-8 h-full flex flex-col relative overflow-hidden">
           <div className="flex justify-between items-center mb-4">
             <div>
               <h3 className="text-lg font-bold text-slate-800 dark:text-white tracking-tighter">Note Lab</h3>
-              <p className="text-slate-400 dark:text-slate-400 text-[9px] font-black tracking-wider uppercase">AI Assisted Repository</p>
+              <p className="text-slate-400 dark:text-slate-500 text-[9px] font-black tracking-wider uppercase">AI Assisted Repository</p>
             </div>
             <div className="flex gap-1.5">
-              <button onClick={() => formatNote('header')} className="w-7 h-7 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-all font-bold text-xs">H</button>
-              <button onClick={() => formatNote('bullets')} className="w-7 h-7 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-all font-bold text-xs">L</button>
-              <button onClick={() => formatNote('bold')} className="w-7 h-7 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-all font-bold text-xs">B</button>
+              <button onClick={() => formatNote('header')} className="w-7 h-7 rounded-md bg-slate-100 dark:bg-surface-container text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-surface-bright transition-all font-bold text-xs"><Heading size={14}/></button>
+              <button onClick={() => formatNote('bullets')} className="w-7 h-7 rounded-md bg-slate-100 dark:bg-surface-container text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-surface-bright transition-all font-bold text-xs"><List size={14}/></button>
+              <button onClick={() => formatNote('bold')} className="w-7 h-7 rounded-md bg-slate-100 dark:bg-surface-container text-slate-700 dark:text-slate-300 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-surface-bright transition-all font-bold text-xs"><Bold size={14}/></button>
             </div>
           </div>
 
           <div className="space-y-3.5">
             <div className="group">
-              <label className="block text-[8px] font-black text-slate-400 uppercase tracking-wider mb-1 ml-1">Note Title</label>
+              <label className="block text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1 ml-1">Note Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Subject or Topic..."
-                className="w-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500/20 text-slate-800 dark:text-white font-bold text-xs transition-all shadow-sm"
+                className="w-full bg-slate-50 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-lg px-3 py-2 outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white text-slate-800 dark:text-white font-bold text-xs transition-all shadow-sm"
               />
             </div>
 
             <div className="group">
-              <label className="block text-[8px] font-black text-slate-400 uppercase tracking-wider mb-1 ml-1">Content</label>
+              <label className="block text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1 ml-1">Content</label>
               <textarea
-                className="w-full h-44 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-4 focus:ring-2 focus:ring-indigo-500/20 outline-none text-slate-700 dark:text-slate-200 resize-none transition-all placeholder-slate-400 font-medium shadow-inner text-xs"
+                className="w-full h-44 bg-slate-50 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-xl p-4 focus:ring-2 focus:ring-slate-900 dark:focus:ring-white outline-none text-slate-700 dark:text-slate-200 resize-none transition-all placeholder-slate-400 font-medium shadow-sm text-xs"
                 placeholder="Write your notes here..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               />
             </div>
 
-            <div className="flex justify-between items-center pt-1.5">
+            <div className="flex justify-between items-center pt-1.5 gap-3">
               <button
                 onClick={handleSimplify}
                 disabled={!notes.trim() || isSimplifying}
-                className="bg-emerald-600 text-white px-4 h-[42px] rounded-lg font-bold uppercase tracking-wider text-[10px] hover:bg-emerald-700 disabled:opacity-30 transition-all shadow-sm flex items-center gap-1.5"
+                className="flex-1 bg-slate-100 dark:bg-surface-container text-slate-800 dark:text-white px-4 h-[42px] rounded-lg font-bold tracking-wider text-[10px] hover:bg-slate-200 dark:hover:bg-surface-bright disabled:opacity-30 transition-all shadow-sm flex justify-center items-center gap-1.5 border border-slate-200 dark:border-outline-variant/10"
               >
-                {isSimplifying ? '✨ Simplifying...' : '✨ AI Simplify'}
+                <Sparkles size={14} className={isSimplifying ? 'animate-spin' : ''}/> {isSimplifying ? 'Simplifying...' : 'AI Simplify'}
               </button>
 
               <button
                 onClick={saveNote}
                 disabled={!notes.trim()}
-                className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white px-5 h-[42px] rounded-lg font-bold uppercase tracking-wider text-[10px] hover:from-indigo-700 hover:to-indigo-800 disabled:opacity-30 transition-all shadow-sm flex items-center justify-center"
+                className="flex-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-5 h-[42px] rounded-lg font-bold tracking-wider text-[10px] hover:bg-slate-800 dark:hover:bg-slate-200 disabled:opacity-30 transition-all shadow-sm flex items-center justify-center gap-1.5"
               >
-                Archive Note
+                <Archive size={14}/> Archive Note
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="lg:col-span-4 bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-4.5 rounded-2xl h-fit border border-white/50 dark:border-slate-800 shadow-sm sticky top-6">
+      <div className="lg:col-span-4 bento-card p-6 h-fit sticky top-6">
         <h3 className="font-black text-slate-800 dark:text-white mb-4.5 flex items-center gap-2 text-base tracking-tight">
-          <span className="w-7 h-7 bg-indigo-600 text-white rounded-md flex items-center justify-center text-sm">📚</span>
+          <span className="w-7 h-7 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md flex items-center justify-center"><BookOpen size={14}/></span>
           The Library
-          <span className="ml-auto bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 text-[8px] px-2 py-0.5 rounded-full font-black tracking-wider uppercase">{savedNotes.length} Files</span>
+          <span className="ml-auto bg-slate-100 dark:bg-surface-container text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-outline-variant/10 text-[8px] px-2 py-0.5 rounded-full font-black tracking-wider uppercase">{savedNotes.length} Files</span>
         </h3>
         {savedNotes.length === 0 ? (
-          <div className="text-center py-6 text-slate-400 border-2 border-dashed border-slate-200/60 dark:border-slate-800 rounded-xl bg-white/30 dark:bg-slate-900/30">
-            <span className="text-2xl block mb-1 opacity-15">📭</span>
-            <p className="text-[9px] font-black uppercase tracking-wider opacity-40">Empty Archive</p>
+          <div className="text-center py-6 text-slate-400 border border-dashed border-slate-200 dark:border-outline-variant/20 rounded-xl bg-slate-50/50 dark:bg-surface-container/30">
+            <span className="mb-2 flex justify-center text-slate-300 dark:text-slate-600"><Inbox size={24}/></span>
+            <p className="text-[9px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">Empty Archive</p>
           </div>
         ) : (
           <div className="space-y-2.5">
@@ -139,13 +140,13 @@ export const NotesSimplifier: React.FC = () => {
               <div
                 key={note.id}
                 onClick={() => loadNote(note)}
-                className="bg-white dark:bg-slate-800 p-3 rounded-lg border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow hover:border-indigo-400 transition-all cursor-pointer group relative overflow-hidden"
+                className="bg-white dark:bg-background p-3 rounded-lg border border-slate-100 dark:border-outline-variant/10 shadow-sm hover:shadow hover:border-slate-300 dark:hover:border-slate-600 transition-all cursor-pointer group relative overflow-hidden"
               >
                 <div className="flex justify-between items-start">
                   <div>
-                    <h4 className="font-black text-slate-800 dark:text-white text-xs line-clamp-1 group-hover:text-indigo-600 transition-colors">{note.title}</h4>
-                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-wider mt-1 flex items-center gap-1.5">
-                      <span>🗓️</span> {note.date}
+                    <h4 className="font-black text-slate-800 dark:text-white text-xs line-clamp-1 transition-colors">{note.title}</h4>
+                    <p className="text-[8px] font-bold text-slate-400 dark:text-slate-500 mt-1 flex items-center gap-1.5">
+                      <Calendar size={10}/> {note.date}
                     </p>
                   </div>
                   <button

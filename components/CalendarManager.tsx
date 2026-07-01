@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { UserProfile, Exam, DailyEvent } from '../types';
+import { Smartphone, Calendar, Clock, ChevronLeft, ChevronRight, Plus, GraduationCap, BookOpen, Activity } from 'lucide-react';
 
 interface CalendarManagerProps {
     userProfile: UserProfile;
@@ -185,7 +186,7 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
             {/* Header & Tabs */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <h2 className="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-300">
+                    <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tighter">
                         Master Schedule
                     </h2>
                     <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-0.5">Update your exams or set your daily routine.</p>
@@ -194,23 +195,23 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                 <div className="flex flex-wrap gap-2.5 items-center">
                     <button
                         onClick={handleSyncCalendar}
-                        className="bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-300 px-3.5 py-2 rounded-xl font-bold text-xs hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors flex items-center gap-1.5 border border-indigo-200 dark:border-indigo-800 shadow-sm"
+                        className="bg-slate-100 dark:bg-surface-container text-slate-700 dark:text-slate-300 px-3.5 py-2 rounded-xl font-bold text-xs hover:bg-slate-200 dark:hover:bg-surface-bright transition-colors flex items-center gap-1.5 border border-slate-200 dark:border-outline-variant/10 shadow-sm"
                     >
-                        <span>📲</span> Sync
+                        <Smartphone size={14} /> Sync
                     </button>
 
-                    <div className="bg-white dark:bg-slate-800 p-1 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 flex relative z-10 w-full sm:w-auto">
+                    <div className="flex bg-white dark:bg-surface-container p-1 rounded-xl shadow-sm border border-slate-200 dark:border-outline-variant/10 overflow-x-auto scrollbar-hide">
                         <button
                             onClick={() => setActiveTab('month')}
-                            className={`flex-1 sm:px-6 py-1.5 rounded-lg font-bold text-xs transition-all duration-300 transform ${activeTab === 'month' ? 'bg-indigo-600 text-white shadow-md scale-102' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+                            className={`flex items-center justify-center gap-1.5 px-4 py-1.5 rounded-lg font-bold text-xs transition-all duration-300 whitespace-nowrap ${activeTab === 'month' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-md' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white'}`}
                         >
-                            🗓️ Calendar
+                            <Calendar size={14} /> Calendar
                         </button>
                         <button
                             onClick={() => setActiveTab('week')}
-                            className={`flex-1 sm:px-6 py-1.5 rounded-lg font-bold text-xs transition-all duration-300 transform ${activeTab === 'week' ? 'bg-indigo-600 text-white shadow-md scale-102' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700'}`}
+                            className={`flex items-center justify-center gap-1.5 flex-1 sm:px-6 py-1.5 rounded-lg font-bold text-xs transition-all duration-300 transform ${activeTab === 'week' ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-md scale-102' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-surface-bright'}`}
                         >
-                            ⏰ Routine
+                            <Clock size={14} /> Routine
                         </button>
                     </div>
                 </div>
@@ -218,12 +219,12 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
 
             {/* MONTH VIEW */}
             {activeTab === 'month' && (
-                <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+                <div className="bento-card overflow-hidden">
                     {/* Calendar Controls */}
-                    <div className="p-4 flex items-center justify-between border-b border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
-                        <button onClick={() => changeMonth(-1)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors">◀️</button>
+                    <div className="p-4 flex items-center justify-between border-b border-slate-100 dark:border-outline-variant/10 bg-slate-50/50 dark:bg-surface-container/30">
+                        <button onClick={() => changeMonth(-1)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-surface-bright rounded-full transition-colors text-slate-500 dark:text-slate-400"><ChevronLeft size={16} /></button>
                         <h3 className="text-base font-bold text-slate-800 dark:text-white">{monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}</h3>
-                        <button onClick={() => changeMonth(1)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors">▶️</button>
+                        <button onClick={() => changeMonth(1)} className="p-1.5 hover:bg-slate-200 dark:hover:bg-surface-bright rounded-full transition-colors text-slate-500 dark:text-slate-400"><ChevronRight size={16} /></button>
                     </div>
 
                     {/* Calendar Grid */}
@@ -252,15 +253,15 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                                         onClick={() => handleDayClick(day)}
                                         className={`
                                     h-16 md:h-22 border rounded-lg p-1.5 cursor-pointer transition-all hover:scale-[1.01] hover:shadow-sm relative group
-                                    ${isToday ? 'bg-indigo-50 dark:bg-indigo-900/20 border-indigo-200 dark:border-indigo-800' : 'bg-white dark:bg-slate-800 border-slate-100 dark:border-slate-700 hover:border-indigo-300 dark:hover:border-indigo-600'}
+                                    ${isToday ? 'bg-slate-50 dark:bg-surface-container border-slate-900 dark:border-white' : 'bg-white dark:bg-background border-slate-100 dark:border-outline-variant/10 hover:border-slate-300 dark:hover:border-slate-500'}
                                 `}
                                     >
-                                        <span className={`text-xs font-bold ${isToday ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>{day}</span>
+                                        <span className={`text-xs font-bold ${isToday ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'}`}>{day}</span>
 
                                         {/* Exam Dots */}
                                         <div className="mt-0.5 flex flex-col gap-0.5 overflow-y-auto max-h-[70%] scrollbar-hide">
                                             {dayExams.map(exam => (
-                                                <div key={exam.id} className="text-[8px] bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-200 px-1 py-0.5 rounded font-bold truncate border border-red-200 dark:border-red-800/50 flex justify-between items-center group/item">
+                                                <div key={exam.id} className="text-[8px] bg-slate-100 dark:bg-surface-bright text-slate-800 dark:text-white px-1 py-0.5 rounded font-bold truncate border border-slate-200 dark:border-outline-variant/50 flex justify-between items-center group/item">
                                                     <span className="truncate">{exam.subject}</span>
                                                     <button
                                                         onClick={(e) => deleteExam(exam.id, e)}
@@ -272,8 +273,8 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                                             ))}
                                         </div>
 
-                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
-                                            <span className="text-lg opacity-25">➕</span>
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none text-slate-400 dark:text-slate-500">
+                                            <Plus size={20} />
                                         </div>
                                     </div>
                                 );
@@ -287,13 +288,13 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
             {activeTab === 'week' && (
                 <div className="space-y-4">
                     {/* Add Routine Form */}
-                    <div className="bg-white dark:bg-slate-900 p-3 md:p-4 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row flex-wrap gap-3 items-stretch sm:items-end">
+                    <div className="bento-card p-3 md:p-4 flex flex-col sm:flex-row flex-wrap gap-3 items-stretch sm:items-end">
                         <div className="flex-1 min-w-[120px]">
                             <label className="text-[10px] font-bold text-slate-500 uppercase mb-1 block">Day</label>
                             <select
                                 value={newRoutineDay}
                                 onChange={(e) => setNewRoutineDay(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
+                                className="w-full bg-slate-50 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white"
                             >
                                 {daysOfWeek.map(d => <option key={d} value={d}>{d}</option>)}
                             </select>
@@ -304,7 +305,7 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                                 type="time"
                                 value={newRoutineTime}
                                 onChange={(e) => setNewRoutineTime(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
+                                className="w-full bg-slate-50 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white"
                             />
                         </div>
                         <div className="flex-1 sm:flex-[2] min-w-[120px]">
@@ -314,7 +315,7 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                                 placeholder="e.g. Math Class"
                                 value={newRoutineTitle}
                                 onChange={(e) => setNewRoutineTitle(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
+                                className="w-full bg-slate-50 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white"
                             />
                         </div>
                         <div className="w-28">
@@ -322,16 +323,16 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                             <select
                                 value={newRoutineType}
                                 onChange={(e) => setNewRoutineType(e.target.value as any)}
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-indigo-500"
+                                className="w-full bg-slate-50 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-lg p-1.5 md:p-2 text-xs md:text-sm text-slate-800 dark:text-white outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white"
                             >
-                                <option value="class">🎓 Class</option>
-                                <option value="study">📚 Study</option>
-                                <option value="leisure">⚽ Other</option>
+                                <option value="class">Class</option>
+                                <option value="study">Study</option>
+                                <option value="leisure">Other</option>
                             </select>
                         </div>
                         <button
                             onClick={addRoutineEvent}
-                            className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-bold shadow-sm transition-all h-[36px] mt-1 sm:mt-0 text-xs"
+                            className="bg-slate-900 dark:bg-white hover:bg-slate-800 dark:hover:bg-slate-200 text-white dark:text-slate-900 px-4 py-2 rounded-lg font-bold shadow-sm transition-all h-[36px] mt-1 sm:mt-0 text-xs"
                         >
                             Add
                         </button>
@@ -344,23 +345,23 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                             const isToday = new Date().toLocaleDateString('en-US', { weekday: 'long' }) === day;
 
                             return (
-                                <div key={day} className={`rounded-xl p-3 min-h-[220px] border ${isToday ? 'bg-indigo-50/50 dark:bg-indigo-900/10 border-indigo-200 dark:border-indigo-800' : 'bg-white/60 dark:bg-slate-900/60 border-slate-100 dark:border-slate-800'}`}>
-                                    <h4 className={`text-xs font-bold mb-2 ${isToday ? 'text-indigo-700 dark:text-indigo-400' : 'text-slate-700 dark:text-slate-300'}`}>{day}</h4>
+                                <div key={day} className={`rounded-xl p-3 min-h-[220px] border ${isToday ? 'bg-slate-50 dark:bg-surface-container border-slate-300 dark:border-slate-600' : 'bg-white/60 dark:bg-surface-container/40 border-slate-100 dark:border-outline-variant/10'}`}>
+                                    <h4 className={`text-xs font-bold mb-2 ${isToday ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'}`}>{day}</h4>
                                     <div className="space-y-1.5">
                                         {dayEvents.length === 0 && (
                                             <p className="text-[10px] text-slate-400 dark:text-slate-600 italic">No events</p>
                                         )}
                                         {dayEvents.map(event => (
-                                            <div key={event.id} className={`bg-white dark:bg-slate-800 p-2 rounded-lg shadow-sm border group relative transition-all ${event.completed ? 'border-indigo-500/35 opacity-75' : 'border-slate-100 dark:border-slate-700'}`}>
+                                            <div key={event.id} className={`bg-white dark:bg-background p-2 rounded-lg shadow-sm border group relative transition-all ${event.completed ? 'opacity-50 border-transparent' : 'border-slate-100 dark:border-outline-variant/10'}`}>
                                                 <div className="flex justify-between items-center">
                                                     <div className="flex items-center gap-1.5">
                                                         <input 
                                                             type="checkbox" 
                                                             checked={!!event.completed} 
                                                             onChange={() => handleToggleRoutineComplete(event.id)}
-                                                            className="w-3 h-3 rounded text-indigo-600 focus:ring-indigo-500 cursor-pointer"
+                                                            className="w-3 h-3 rounded text-slate-900 dark:text-white focus:ring-slate-900 dark:focus:ring-white cursor-pointer accent-slate-900 dark:accent-white"
                                                         />
-                                                        <span className={`text-[8px] font-bold bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded text-slate-600 dark:text-slate-300 ${event.completed ? 'line-through opacity-60' : ''}`}>{event.time}</span>
+                                                        <span className={`text-[8px] font-bold bg-slate-100 dark:bg-surface-bright px-1 py-0.5 rounded text-slate-600 dark:text-slate-300 ${event.completed ? 'line-through opacity-60' : ''}`}>{event.time}</span>
                                                     </div>
                                                     <button
                                                         onClick={() => deleteRoutineEvent(event.id)}
@@ -370,8 +371,8 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                                                     </button>
                                                 </div>
                                                 <p className={`font-semibold text-xs text-slate-800 dark:text-white mt-1 leading-tight ${event.completed ? 'line-through text-slate-400 dark:text-slate-500' : ''}`}>{event.title}</p>
-                                                <span className="text-[8px] uppercase font-bold tracking-wider text-slate-400 mt-1 block">
-                                                    {event.type === 'class' ? '🎓 Class' : event.type === 'study' ? '📚 Study' : '⚽ Activity'}
+                                                <span className="text-[8px] uppercase font-bold tracking-wider text-slate-400 mt-1 flex items-center gap-1">
+                                                    {event.type === 'class' ? <><GraduationCap size={10}/> Class</> : event.type === 'study' ? <><BookOpen size={10}/> Study</> : <><Activity size={10}/> Activity</>}
                                                 </span>
                                             </div>
                                         ))}
@@ -386,7 +387,7 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
             {/* Add Exam Modal */}
             {isExamModalOpen && (
                 <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-                    <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-2xl max-w-md w-full animate-slide-up border border-slate-200 dark:border-slate-700">
+                    <div className="bento-card p-8 shadow-2xl max-w-md w-full animate-slide-up">
                         <h3 className="text-2xl font-bold text-slate-800 dark:text-white mb-2">Add Event</h3>
                         <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">For {selectedDateStr}</p>
 
@@ -398,7 +399,7 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                                 value={newExamSubject}
                                 onChange={(e) => setNewExamSubject(e.target.value)}
                                 placeholder="e.g. Physics Final or Study Group"
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white"
+                                className="w-full bg-slate-50 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-slate-900 dark:focus:ring-white text-slate-800 dark:text-white"
                                 onKeyDown={(e) => e.key === 'Enter' && addExam()}
                             />
                         </div>
@@ -406,14 +407,14 @@ export const CalendarManager: React.FC<CalendarManagerProps> = ({ userProfile, o
                         <div className="flex gap-3">
                             <button
                                 onClick={() => setIsExamModalOpen(false)}
-                                className="flex-1 py-3 font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
+                                className="flex-1 py-3 font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-surface-container rounded-xl transition-colors"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={addExam}
                                 disabled={!newExamSubject}
-                                className="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg disabled:opacity-50 transition-all"
+                                className="flex-1 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold rounded-xl shadow-lg disabled:opacity-50 transition-all"
                             >
                                 Add Event
                             </button>

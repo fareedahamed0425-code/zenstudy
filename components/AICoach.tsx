@@ -4,6 +4,7 @@ import { ChatMessage, UserProfile, Section } from '../types';
 import { getAiTutorResponse } from '../services/aiService';
 import { SymptomChecker } from './SymptomChecker';
 import { stressData } from '../constants';
+import { BarChart2, Brain, Zap, Search, Bandage, TrendingUp, Sparkles, MessageSquare, GraduationCap, User, Calendar, Trophy, AlertTriangle, CheckCircle, Flame, Target } from 'lucide-react';
 
 interface AICoachProps {
   userProfile?: UserProfile;
@@ -167,77 +168,77 @@ export const AICoach: React.FC<AICoachProps> = ({
   const mentorInsightText = generateMentorInsight(currentProfile);
 
   const subTabs = [
-    { id: 'overview', label: 'Overview', icon: '📊' },
-    { id: 'profile', label: 'Learning Profile', icon: '🧠' },
-    { id: 'focus', label: 'Focus Insights', icon: '⚡' },
-    { id: 'academic', label: 'Academic Diagnosis', icon: '🔍' },
-    { id: 'burnout', label: 'Burnout & Stress', icon: '🩹' },
-    { id: 'trends', label: 'Progress Trends', icon: '📈' },
-    { id: 'recommendations', label: 'AI Advice', icon: '✨' },
-    { id: 'chat', label: 'AI Chat Coach', icon: '💬' },
+    { id: 'overview', label: 'Overview', icon: <BarChart2 size={14}/> },
+    { id: 'profile', label: 'Learning Profile', icon: <Brain size={14}/> },
+    { id: 'focus', label: 'Focus Insights', icon: <Zap size={14}/> },
+    { id: 'academic', label: 'Academic Diagnosis', icon: <Search size={14}/> },
+    { id: 'burnout', label: 'Burnout & Stress', icon: <Bandage size={14}/> },
+    { id: 'trends', label: 'Progress Trends', icon: <TrendingUp size={14}/> },
+    { id: 'recommendations', label: 'AI Advice', icon: <Sparkles size={14}/> },
+    { id: 'chat', label: 'AI Chat Coach', icon: <MessageSquare size={14}/> },
   ];
 
   return (
-    <div className="bg-white/80 dark:bg-slate-900/90 backdrop-blur-2xl rounded-2xl shadow-sm border border-slate-200 dark:border-indigo-500/10 h-full flex flex-col md:flex-row overflow-hidden relative group transition-all duration-300">
+    <div className="bg-slate-50 dark:bg-background rounded-2xl border border-slate-200 dark:border-outline-variant/10 shadow-sm h-full flex flex-col md:flex-row overflow-hidden relative group transition-all duration-300">
       
       {/* Sidebar Navigation */}
-      <div className="w-full md:w-52 flex-shrink-0 bg-slate-50/50 dark:bg-slate-950/40 border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-800 p-2 md:p-3 flex flex-col justify-between">
+      <div className="w-full md:w-64 flex-shrink-0 bg-white/50 dark:bg-surface-container/50 border-b md:border-b-0 md:border-r border-slate-200 dark:border-outline-variant/10 p-3 md:p-4 flex flex-col justify-between">
         <div className="space-y-3">
           {/* Module Label */}
-          <div className="hidden md:flex items-center gap-2 px-2 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-xl text-white">
-            <span className="text-base">🎓</span>
+          <div className="hidden md:flex items-center gap-3 px-3 py-2 bg-slate-900 dark:bg-white rounded-xl text-white dark:text-slate-900 shadow-sm">
+            <span className="text-white dark:text-slate-900"><GraduationCap size={18}/></span>
             <div className="min-w-0">
-              <h3 className="text-xs font-black truncate">ILMORA Mentor</h3>
-              <p className="text-[7px] uppercase font-bold text-indigo-100 tracking-wider">Intelligence Brain</p>
+              <h3 className="text-sm font-bold truncate">ILMORA Mentor</h3>
+              <p className="text-[10px] uppercase font-semibold text-slate-400 dark:text-slate-500 tracking-wider">Intelligence Brain</p>
             </div>
           </div>
 
-          {/* Sub-tabs List */}
-          <div className="flex md:flex-col overflow-x-auto md:overflow-x-visible gap-1 pb-1 md:pb-0 scrollbar-hide">
-            {subTabs.map(tab => (
+          {/* Navigation Tabs */}
+          <div className="flex flex-row md:flex-col gap-2 overflow-x-auto md:overflow-visible scrollbar-hide pb-2 md:pb-0">
+            {subTabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => onTabChange(tab.id)}
-                className={`flex-shrink-0 flex items-center gap-2 px-3 py-1.5 md:py-2 w-auto md:w-full rounded-lg text-left transition-all text-xs font-bold
-                  ${activeTab === tab.id
-                    ? 'bg-indigo-600 text-white shadow-sm'
-                    : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'}
-                `}
+                className={`flex items-center gap-3 px-4 py-3 md:py-2.5 rounded-xl transition-all w-auto md:w-full shrink-0 ${
+                  activeTab === tab.id
+                    ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/20' 
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-surface-container hover:text-slate-900 dark:hover:text-white'
+                }`}
               >
-                <span>{tab.icon}</span>
-                <span>{tab.label}</span>
+                <span className="shrink-0">{tab.icon}</span>
+                <span className="truncate whitespace-nowrap md:flex-1 min-w-0 text-left font-bold text-sm md:text-[13px]">{tab.label}</span>
               </button>
             ))}
           </div>
         </div>
 
         {/* Small stats summary inside sidebar */}
-        <div className="hidden md:block bg-gradient-to-br from-indigo-600/5 to-purple-600/5 p-2 rounded-xl border border-indigo-500/10 text-center">
-          <span className="text-[7px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-wider">Focus Status</span>
-          <p className="text-[10px] font-bold text-slate-700 dark:text-slate-200 mt-0.5">{placement.zone.split(' ')[0]}</p>
+        <div className="hidden md:block bg-slate-100 dark:bg-surface-container p-3 rounded-xl border border-slate-200 dark:border-outline-variant/10 text-center shadow-sm">
+          <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider block mb-1">Focus Status</span>
+          <p className="text-xs font-bold text-slate-800 dark:text-slate-200">{placement.zone.split(' ')[0]}</p>
         </div>
       </div>
 
       {/* Main View Area */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-5.5 min-h-[400px] flex flex-col justify-between">
-        
+      <div className="flex-1 overflow-y-auto p-5 md:p-8 min-h-[400px] pb-32 flex flex-col">
+        <div className="w-full max-w-4xl mx-auto h-full flex flex-col">
         {/* OVERVIEW TAB */}
         {activeTab === 'overview' && (
-          <div className="space-y-5.5">
+          <div className="space-y-6 flex-1">
             <div>
-              <span className="text-[9px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 1</span>
-              <h3 className="text-xl font-extrabold text-slate-800 dark:text-white mt-0.5">Overview</h3>
+              <span className="text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 1</span>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">Overview</h3>
             </div>
 
             {/* AI Academic Mentor Speech bubble */}
-            <div className="bg-gradient-to-br from-indigo-600 to-indigo-700 text-white p-5 rounded-2xl shadow-sm border border-indigo-500/20 relative">
-              <div className="flex items-start gap-3.5">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-xl shrink-0 shadow-sm animate-float">
-                  🧘
+            <div className="bg-slate-900 dark:bg-surface-bright text-white p-6 rounded-2xl shadow-sm border border-slate-800 dark:border-outline-variant/10 relative">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0 shadow-sm animate-float">
+                  <User size={24}/>
                 </div>
-                <div className="space-y-2">
-                  <h4 className="font-black text-sm text-indigo-100">ILMORA Academic Mentor</h4>
-                  <p className="text-xs font-semibold leading-relaxed text-white">
+                <div className="space-y-1.5 mt-0.5">
+                  <h4 className="font-bold text-base text-slate-300 dark:text-slate-200">ILMORA Academic Mentor</h4>
+                  <p className="text-sm font-normal leading-relaxed text-slate-200">
                     "{mentorInsightText}"
                   </p>
                 </div>
@@ -246,35 +247,35 @@ export const AICoach: React.FC<AICoachProps> = ({
 
             {/* Mini Dashboard Stats Cards */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-[8px] font-black uppercase text-slate-400 tracking-wider">Study Streak</span>
-                <p className="text-xl font-bold font-mono text-amber-500 mt-1">{currentProfile.studyStreak} Days</p>
+              <div className="bento-card p-5">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Study Streak</span>
+                <p className="text-2xl font-bold font-mono text-slate-800 dark:text-white mt-1.5">{currentProfile.studyStreak} Days</p>
               </div>
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-[8px] font-black uppercase text-slate-400 tracking-wider">Hours Tracked</span>
-                <p className="text-xl font-bold font-mono text-indigo-500 mt-1">{(currentProfile.totalStudyHours || 0).toFixed(1)}h</p>
+              <div className="bento-card p-5">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Hours Tracked</span>
+                <p className="text-2xl font-bold font-mono text-slate-800 dark:text-white mt-1.5">{(currentProfile.totalStudyHours || 0).toFixed(1)}h</p>
               </div>
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-[8px] font-black uppercase text-slate-400 tracking-wider">Burnout Risk</span>
-                <p className="text-xl font-bold font-mono text-red-500 mt-1">{currentProfile.burnoutRiskScore || 10}%</p>
+              <div className="bento-card p-5">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Burnout Risk</span>
+                <p className="text-2xl font-bold font-mono text-red-500 mt-1.5">{currentProfile.burnoutRiskScore || 10}%</p>
               </div>
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-[8px] font-black uppercase text-slate-400 tracking-wider">Academic Rank</span>
-                <p className="text-sm font-black text-slate-800 dark:text-white mt-2 truncate">{currentProfile.rank || 'Beginner'}</p>
+              <div className="bento-card p-5">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Academic Rank</span>
+                <p className="text-lg font-bold text-slate-800 dark:text-white mt-2.5 truncate">{currentProfile.rank || 'Beginner'}</p>
               </div>
             </div>
 
             {/* Daily study goal indicator */}
-            <div className="glass p-4.5 rounded-xl border border-slate-200 dark:border-slate-800 flex items-center justify-between gap-4">
+            <div className="bento-card p-5 flex items-center justify-between gap-4">
               <div>
-                <h4 className="text-xs font-bold text-slate-700 dark:text-slate-200">Daily Study Goal Progress</h4>
-                <p className="text-[10px] text-slate-500 mt-0.5">Target: {currentProfile.dailyStudyGoal || 2} hours per day</p>
+                <h4 className="text-sm font-bold text-slate-800 dark:text-white">Daily Study Goal Progress</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Target: {currentProfile.dailyStudyGoal || 2} hours per day</p>
               </div>
-              <div className="flex items-center gap-2.5">
-                <div className="w-24 md:w-32 bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
-                  <div className="bg-indigo-600 h-full" style={{ width: `${Math.min(100, currentProfile.goalCompletionRate || 0)}%` }}></div>
+              <div className="flex items-center gap-4">
+                <div className="w-32 md:w-48 bg-slate-200 dark:bg-surface-container h-2.5 rounded-full overflow-hidden">
+                  <div className="bg-slate-900 dark:bg-white h-full" style={{ width: `${Math.min(100, currentProfile.goalCompletionRate || 0)}%` }}></div>
                 </div>
-                <span className="text-xs font-bold font-mono text-slate-800 dark:text-white">{Math.round(currentProfile.goalCompletionRate || 0)}%</span>
+                <span className="text-sm font-bold font-mono text-slate-800 dark:text-white">{Math.round(currentProfile.goalCompletionRate || 0)}%</span>
               </div>
             </div>
           </div>
@@ -284,38 +285,38 @@ export const AICoach: React.FC<AICoachProps> = ({
         {activeTab === 'profile' && (
           <div className="space-y-5.5">
             <div>
-              <span className="text-[9px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 2</span>
-              <h3 className="text-xl font-extrabold text-slate-800 dark:text-white mt-0.5">Learning Profile</h3>
+              <span className="text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 2</span>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">Learning Profile</h3>
             </div>
 
             {/* Cognitive Profile Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-[8px] font-black uppercase text-indigo-500 tracking-wider">Learning Style</span>
-                <p className="text-xs font-bold text-slate-800 dark:text-white mt-2">
+              <div className="bento-card p-5">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Learning Style</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-white mt-2">
                   {currentProfile.adaptiveLearningProfile || (currentProfile.learningStyle ? currentProfile.learningStyle.join(", ") : 'Mixed Style')}
                 </p>
               </div>
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-[8px] font-black uppercase text-emerald-500 tracking-wider">Motivation Profile</span>
-                <p className="text-xs font-bold text-slate-800 dark:text-white mt-2">
+              <div className="bento-card p-5">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Motivation Profile</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-white mt-2">
                   {currentProfile.motivationProfile || 'Curiosity & Grade Drive'}
                 </p>
               </div>
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800">
-                <span className="text-[8px] font-black uppercase text-purple-500 tracking-wider">Focus Profile</span>
-                <p className="text-xs font-bold text-slate-800 dark:text-white mt-2">
+              <div className="bento-card p-5">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Focus Profile</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-white mt-2">
                   {currentProfile.focusProfile || 'Balanced Day/Night Focus'}
                 </p>
               </div>
             </div>
 
             {/* Yerkes-Dodson Law Cognitive Analysis */}
-            <div className="bg-white dark:bg-slate-900/60 p-4.5 rounded-xl border border-slate-200 dark:border-slate-800 space-y-4">
+            <div className="bento-card p-6 space-y-4">
               <div>
-                <h4 className="text-sm font-bold text-slate-800 dark:text-white">Cognitive Analysis (Yerkes-Dodson Law)</h4>
-                <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">
-                  Optimal performance occurs at moderate stress levels. Current stress level: <span className="font-bold text-indigo-600 dark:text-indigo-400 font-mono">{currentProfile.stressLevel}/10</span>.
+                <h4 className="text-base font-bold text-slate-800 dark:text-white">Cognitive Analysis (Yerkes-Dodson Law)</h4>
+                <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
+                  Optimal performance occurs at moderate stress levels. Current stress level: <span className="font-bold text-slate-900 dark:text-white font-mono">{currentProfile.stressLevel}/10</span>.
                 </p>
               </div>
 
@@ -339,12 +340,12 @@ export const AICoach: React.FC<AICoachProps> = ({
               </div>
 
               {/* Stress Position Card */}
-              <div className="bg-indigo-50 dark:bg-indigo-950/20 p-3 rounded-lg border border-indigo-100/50 dark:border-indigo-900/35 flex items-center justify-between text-xs">
+              <div className="bg-slate-100 dark:bg-surface-container p-4 rounded-lg border border-slate-200 dark:border-outline-variant/10 flex items-center justify-between text-sm shadow-sm">
                 <div>
-                  <span className="text-[8px] font-black uppercase text-indigo-600 dark:text-indigo-400 block mb-0.5">Yerkes-Dodson Zone</span>
-                  <span className="font-bold text-slate-800 dark:text-indigo-200">{placement.zone}</span>
+                  <span className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 block mb-1 tracking-wider">Yerkes-Dodson Zone</span>
+                  <span className="font-bold text-slate-800 dark:text-white">{placement.zone}</span>
                 </div>
-                <div className="text-right text-[10px] text-indigo-700 dark:text-indigo-300 max-w-[50%] font-medium">
+                <div className="text-right text-xs text-slate-600 dark:text-slate-300 max-w-[50%] font-medium">
                   {placement.advice}
                 </div>
               </div>
@@ -356,61 +357,61 @@ export const AICoach: React.FC<AICoachProps> = ({
         {activeTab === 'focus' && (
           <div className="space-y-5.5">
             <div>
-              <span className="text-[9px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 3</span>
-              <h3 className="text-xl font-extrabold text-slate-800 dark:text-white mt-0.5">Focus Insights</h3>
+              <span className="text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 3</span>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">Focus Insights</h3>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               
               {/* Daily focus consistency */}
-              <div className="glass p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+              <div className="bento-card p-6 flex flex-col justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-2">Session Consistency</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs leading-normal mb-4">
+                  <h4 className="text-base font-bold text-slate-800 dark:text-white mb-2">Session Consistency</h4>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
                     Your calculated study habits yield a consistency rating of {currentProfile.consistencyScore}%. 
                     Maintaining session frequency directly trains academic memory retention.
                   </p>
                 </div>
-                <div className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-3.5 rounded-xl border border-slate-200/50 dark:border-slate-700">
+                <div className="flex justify-between items-center bg-slate-50 dark:bg-surface-container p-4 rounded-xl border border-slate-200 dark:border-outline-variant/10 shadow-sm">
                   <div>
-                    <span className="text-[8px] font-black uppercase text-slate-400">Consistency score</span>
-                    <p className="text-xl font-bold font-mono text-indigo-600 dark:text-indigo-400">{currentProfile.consistencyScore}%</p>
+                    <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Consistency score</span>
+                    <p className="text-2xl font-bold font-mono text-slate-900 dark:text-white mt-1">{currentProfile.consistencyScore}%</p>
                   </div>
                   <div>
-                    <span className="text-[8px] font-black uppercase text-slate-400">Streak freeze available</span>
-                    <p className="text-sm font-bold text-slate-700 dark:text-slate-200 mt-1">{currentProfile.streakFreezeCount || 0} active</p>
+                    <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 tracking-wider">Streak freeze available</span>
+                    <p className="text-base font-bold text-slate-800 dark:text-white mt-2">{currentProfile.streakFreezeCount || 0} active</p>
                   </div>
                 </div>
               </div>
 
               {/* Pomodoro shield focus warnings */}
-              <div className="glass p-5 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+              <div className="bento-card p-6 flex flex-col justify-between">
                 <div>
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-white mb-2">Distraction Analysis</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs leading-normal mb-4">
+                  <h4 className="text-base font-bold text-slate-800 dark:text-white mb-2">Distraction Analysis</h4>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
                     The focus shield tracks tab deviations. Frequent browser context switches degrade cognitive focus cycles.
                     {(currentProfile.tabSwitchCount || 0) > 5 && (
                       <span className="block mt-2 font-bold text-red-500 dark:text-red-400">
-                        ⚠️ You have shifted tabs {currentProfile.tabSwitchCount} times. You should minimize these distractions to maintain focus!
+                         You have shifted tabs {currentProfile.tabSwitchCount} times. You should minimize these distractions to maintain focus!
                       </span>
                     )}
                   </p>
                 </div>
-                <div className="bg-red-500/5 dark:bg-red-950/10 p-3.5 rounded-xl border border-red-200/50 dark:border-red-950/30 flex justify-between items-center">
-                  <div className="flex gap-4">
+                <div className="bg-red-50 dark:bg-red-950/20 p-4 rounded-xl border border-red-200 dark:border-red-900/30 flex justify-between items-center shadow-sm">
+                  <div className="flex gap-6">
                     <div>
-                      <span className="text-[8px] font-black uppercase text-red-655 dark:text-red-300">Device Screen Time</span>
-                      <p className="text-lg font-bold font-mono text-red-600 dark:text-red-400 mt-1">{currentProfile.dailyScreenTime || 'N/A'} Hours</p>
+                      <span className="text-[10px] font-semibold uppercase text-red-600 dark:text-red-400 tracking-wider">Device Screen Time</span>
+                      <p className="text-xl font-bold font-mono text-red-600 dark:text-red-400 mt-1">{currentProfile.dailyScreenTime || 'N/A'} Hours</p>
                     </div>
                     <div>
-                      <span className="text-[8px] font-black uppercase text-red-655 dark:text-red-300">Tab Shifts</span>
-                      <p className="text-lg font-bold font-mono text-red-600 dark:text-red-400 mt-1">{currentProfile.tabSwitchCount || 0}</p>
+                      <span className="text-[10px] font-semibold uppercase text-red-600 dark:text-red-400 tracking-wider">Tab Shifts</span>
+                      <p className="text-xl font-bold font-mono text-red-600 dark:text-red-400 mt-1">{currentProfile.tabSwitchCount || 0}</p>
                     </div>
                   </div>
                   {onNavigate && (
                     <button 
                       onClick={() => onNavigate(Section.STRATEGIES)}
-                      className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-1.5 rounded-lg text-[10px] transition-all uppercase tracking-wider"
+                      className="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg text-xs transition-all uppercase tracking-wider shadow-sm"
                     >
                       Run Focus Shield
                     </button>
@@ -426,47 +427,47 @@ export const AICoach: React.FC<AICoachProps> = ({
         {activeTab === 'academic' && (
           <div className="space-y-5.5">
             <div>
-              <span className="text-[9px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 4</span>
-              <h3 className="text-xl font-extrabold text-slate-800 dark:text-white mt-0.5">Academic Diagnosis</h3>
+              <span className="text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 4</span>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">Academic Diagnosis</h3>
             </div>
 
             {/* School details */}
-            <div className="glass p-4.5 rounded-xl border border-slate-200 dark:border-slate-800 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bento-card p-5 grid grid-cols-2 md:grid-cols-4 gap-4">
               <div>
-                <span className="text-[8px] font-black uppercase text-slate-400">Course / Major</span>
-                <p className="text-xs font-bold text-slate-800 dark:text-white mt-1 truncate">{currentProfile.course || 'Cyber Security'}</p>
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 block truncate whitespace-nowrap tracking-wider">Course / Major</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-white mt-2 truncate">{currentProfile.course || 'Cyber Security'}</p>
               </div>
               <div>
-                <span className="text-[8px] font-black uppercase text-slate-400">University</span>
-                <p className="text-xs font-bold text-slate-800 dark:text-white mt-1 truncate">{currentProfile.university || 'ILMORA Institute'}</p>
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 block truncate whitespace-nowrap tracking-wider">University</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-white mt-2 truncate">{currentProfile.university || 'ILMORA Institute'}</p>
               </div>
               <div>
-                <span className="text-[8px] font-black uppercase text-slate-400">Semester</span>
-                <p className="text-xs font-bold text-slate-800 dark:text-white mt-1">{currentProfile.semester || 'Semester 4'}</p>
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 block truncate whitespace-nowrap tracking-wider">Semester</span>
+                <p className="text-sm font-bold text-slate-800 dark:text-white mt-2 truncate">{currentProfile.semester || 'Semester 4'}</p>
               </div>
               <div>
-                <span className="text-[8px] font-black uppercase text-slate-400">Target CGPA</span>
-                <p className="text-xs font-bold font-mono text-slate-800 dark:text-white mt-1">{currentProfile.targetCGPA || 'N/A'}</p>
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 block truncate whitespace-nowrap tracking-wider">Target CGPA</span>
+                <p className="text-sm font-bold font-mono text-slate-800 dark:text-white mt-2 truncate">{currentProfile.targetCGPA || 'N/A'}</p>
               </div>
             </div>
 
             {/* Upcoming Exams and count downs */}
-            <div className="bg-white dark:bg-slate-900/60 p-4.5 rounded-xl border border-slate-200 dark:border-slate-800">
-              <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest mb-3">Academic Exam Planner</h4>
+            <div className="bento-card p-5">
+              <h4 className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 tracking-widest mb-4">Academic Exam Planner</h4>
               {currentProfile.exams && currentProfile.exams.length > 0 ? (
-                <div className="space-y-2">
+                <div className="space-y-3">
                   {currentProfile.exams.map(ex => {
                     const diffDays = Math.ceil((new Date(ex.date).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
                     const isUpcoming = diffDays >= 0;
                     return (
-                      <div key={ex.id} className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-lg border border-slate-200/50 dark:border-slate-700 text-xs">
-                        <div className="flex items-center gap-2">
-                          <span className="text-base">📅</span>
-                          <span className="font-bold text-slate-700 dark:text-slate-200">{ex.subject}</span>
+                      <div key={ex.id} className="flex justify-between items-center bg-slate-50 dark:bg-surface-container p-4 rounded-xl border border-slate-200 dark:border-outline-variant/10 text-sm shadow-sm">
+                        <div className="flex items-center gap-3">
+                          <Calendar size={18} className="text-slate-600 dark:text-slate-300"/>
+                          <span className="font-bold text-slate-800 dark:text-white">{ex.subject}</span>
                         </div>
                         <div className="text-right">
-                          <p className="font-mono font-bold text-[10px] text-slate-655 dark:text-slate-300">{ex.date}</p>
-                          <p className={`text-[9px] font-black mt-0.5 uppercase tracking-wider ${isUpcoming ? (diffDays <= 3 ? 'text-red-500' : 'text-indigo-600') : 'text-slate-400'}`}>
+                          <p className="font-mono font-bold text-xs text-slate-600 dark:text-slate-300">{ex.date}</p>
+                          <p className={`text-[10px] font-bold mt-1 uppercase tracking-wider ${isUpcoming ? (diffDays <= 3 ? 'text-red-500' : 'text-slate-900 dark:text-white') : 'text-slate-500 dark:text-slate-400'}`}>
                             {isUpcoming ? `${diffDays} days left` : 'Completed'}
                           </p>
                         </div>
@@ -475,7 +476,7 @@ export const AICoach: React.FC<AICoachProps> = ({
                   })}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 text-center py-4">No upcoming exams loaded. Set exams in Profile page.</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-6">No upcoming exams loaded. Set exams in Profile page.</p>
               )}
             </div>
           </div>
@@ -485,22 +486,22 @@ export const AICoach: React.FC<AICoachProps> = ({
         {activeTab === 'burnout' && (
           <div className="space-y-5.5">
             <div>
-              <span className="text-[9px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 5</span>
-              <h3 className="text-xl font-extrabold text-slate-800 dark:text-white mt-0.5">Burnout & Stress Analysis</h3>
+              <span className="text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 5</span>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">Burnout & Stress Analysis</h3>
             </div>
 
             {/* Burnout Risk score */}
-            <div className="glass p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
-              <div className="flex justify-between items-start mb-2">
+            <div className="bento-card p-6">
+              <div className="flex justify-between items-start mb-3">
                 <div>
-                  <h4 className="text-sm font-bold text-slate-800 dark:text-white">Calculated Burnout Risk Index</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-xs mt-0.5">Based on study hours, mood check-ins, and session timings.</p>
+                  <h4 className="text-base font-bold text-slate-800 dark:text-white">Calculated Burnout Risk Index</h4>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Based on study hours, mood check-ins, and session timings.</p>
                 </div>
-                <span className="text-2xl font-bold font-mono text-red-500 dark:text-red-400">{currentProfile.burnoutRiskScore || 10}%</span>
+                <span className="text-3xl font-bold font-mono text-red-500 dark:text-red-400">{currentProfile.burnoutRiskScore || 10}%</span>
               </div>
               
               {/* Progress bar */}
-              <div className="w-full bg-slate-200 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden mt-3">
+              <div className="w-full bg-slate-200 dark:bg-surface-container h-2.5 rounded-full overflow-hidden mt-3">
                 <div 
                   className={`h-full transition-all duration-700 ${currentProfile.burnoutRiskScore && currentProfile.burnoutRiskScore > 70 ? 'bg-red-500' : currentProfile.burnoutRiskScore && currentProfile.burnoutRiskScore > 40 ? 'bg-amber-500' : 'bg-emerald-500'}`} 
                   style={{ width: `${currentProfile.burnoutRiskScore || 10}%` }}
@@ -509,27 +510,27 @@ export const AICoach: React.FC<AICoachProps> = ({
             </div>
 
             {/* Embedded Symptom Checker Stress Diagnostic Quiz */}
-            <div className="bg-white dark:bg-slate-900/60 p-4.5 rounded-xl border border-slate-200 dark:border-slate-800">
-              <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest mb-3.5">Interactive Stress Diagnostic Quiz</h4>
+            <div className="bento-card p-5">
+              <h4 className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 tracking-widest mb-4">Interactive Stress Diagnostic Quiz</h4>
               <SymptomChecker onNavigateToStrategy={(section) => { if (onNavigate) onNavigate(section); }} />
             </div>
 
             {/* Mood logs list */}
-            <div className="bg-white dark:bg-slate-900/60 p-4.5 rounded-xl border border-slate-200 dark:border-slate-800">
-              <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest mb-3">Mood Logs History</h4>
+            <div className="bento-card p-5">
+              <h4 className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 tracking-widest mb-4">Mood Logs History</h4>
               {currentProfile.moodLogs && currentProfile.moodLogs.length > 0 ? (
-                <div className="max-h-36 overflow-y-auto space-y-1.5 scrollbar-hide">
+                <div className="max-h-48 overflow-y-auto space-y-2 scrollbar-hide">
                   {currentProfile.moodLogs.slice(-6).reverse().map((log, idx) => (
-                    <div key={idx} className="flex justify-between items-center text-xs bg-slate-50 dark:bg-slate-800 px-3 py-1.5 rounded border border-slate-200/40 dark:border-slate-700">
-                      <span className="font-bold text-slate-700 dark:text-slate-205">{log.date}</span>
-                      <span className="font-black text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 px-2 py-0.5 rounded text-[10px]">
+                    <div key={idx} className="flex justify-between items-center text-sm bg-slate-50 dark:bg-surface-container px-4 py-2.5 rounded-xl border border-slate-200 dark:border-outline-variant/10 shadow-sm">
+                      <span className="font-bold text-slate-700 dark:text-slate-300">{log.date}</span>
+                      <span className="font-bold text-slate-800 dark:text-slate-200 bg-white dark:bg-background px-3 py-1 rounded text-xs border border-slate-200 dark:border-outline-variant/10">
                         {log.mood}
                       </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 text-center py-3">No mood check-ins completed today. Log moods in the dashboard.</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-4">No mood check-ins completed today. Log moods in the dashboard.</p>
               )}
             </div>
           </div>
@@ -539,36 +540,36 @@ export const AICoach: React.FC<AICoachProps> = ({
         {activeTab === 'trends' && (
           <div className="space-y-5.5">
             <div>
-              <span className="text-[9px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 6</span>
-              <h3 className="text-xl font-extrabold text-slate-800 dark:text-white mt-0.5">Progress Trends</h3>
+              <span className="text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 6</span>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">Progress Trends</h3>
             </div>
 
             {/* Achievements list */}
-            <div className="bg-white dark:bg-slate-900/60 p-4.5 rounded-xl border border-slate-200 dark:border-slate-800">
-              <h4 className="text-xs font-black uppercase text-slate-400 tracking-widest mb-3">Achievements Progression</h4>
+            <div className="bento-card p-5">
+              <h4 className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 tracking-widest mb-4">Achievements Progression</h4>
               {currentProfile.achievements && currentProfile.achievements.length > 0 ? (
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {currentProfile.achievements.map((ach, idx) => (
-                    <div key={idx} className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800 p-2 rounded-lg border border-slate-200/50 dark:border-slate-700 text-[10px] font-bold">
-                      <span className="text-base">🏆</span>
+                    <div key={idx} className="flex items-center gap-2.5 bg-slate-50 dark:bg-surface-container p-3 rounded-xl border border-slate-200 dark:border-outline-variant/10 shadow-sm text-xs font-bold">
+                      <span className="text-slate-700 dark:text-slate-300"><Trophy size={16}/></span>
                       <span className="text-slate-800 dark:text-slate-200">{ach}</span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-xs text-slate-400 text-center py-4">No achievements unlocked yet. Accumulate study sessions to trigger unlocks.</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-6">No achievements unlocked yet. Accumulate study sessions to trigger unlocks.</p>
               )}
             </div>
 
             {/* Streak records */}
-            <div className="grid grid-cols-2 gap-4">
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-center">
-                <span className="text-[8px] font-black uppercase text-slate-400 block">Current Habit Streak</span>
-                <span className="text-xl font-bold font-mono text-amber-500 block mt-1">{currentProfile.studyStreak} Days</span>
+            <div className="grid grid-cols-2 gap-5">
+              <div className="bento-card p-6 text-center">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 block tracking-wider">Current Habit Streak</span>
+                <span className="text-3xl font-bold font-mono text-slate-900 dark:text-white block mt-2">{currentProfile.studyStreak} Days</span>
               </div>
-              <div className="glass p-4 rounded-xl border border-slate-200 dark:border-slate-800 text-center">
-                <span className="text-[8px] font-black uppercase text-slate-400 block">All-time Best Streak</span>
-                <span className="text-xl font-bold font-mono text-purple-600 block mt-1">{currentProfile.bestStreak || currentProfile.studyStreak} Days</span>
+              <div className="bento-card p-6 text-center">
+                <span className="text-[10px] font-semibold uppercase text-slate-500 dark:text-slate-400 block tracking-wider">All-time Best Streak</span>
+                <span className="text-3xl font-bold font-mono text-slate-900 dark:text-white block mt-2">{currentProfile.bestStreak || currentProfile.studyStreak} Days</span>
               </div>
             </div>
           </div>
@@ -578,29 +579,29 @@ export const AICoach: React.FC<AICoachProps> = ({
         {activeTab === 'recommendations' && (
           <div className="space-y-5.5">
             <div>
-              <span className="text-[9px] font-black uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 7</span>
-              <h3 className="text-xl font-extrabold text-slate-800 dark:text-white mt-0.5">Personalized Recommendations</h3>
+              <span className="text-[10px] font-bold uppercase text-indigo-600 dark:text-indigo-400 tracking-widest">Section 7</span>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">Personalized Recommendations</h3>
             </div>
 
             {/* AI Advisor Card Deck */}
             <div className="space-y-3.5">
               {/* Recommendation 1: Stress */}
               {currentProfile.stressLevel && currentProfile.stressLevel > 7 ? (
-                <div className="p-4 bg-red-500/5 dark:bg-red-950/15 border border-red-500/20 rounded-xl flex items-start gap-3">
-                  <span className="text-lg shrink-0 mt-0.5">⚠️</span>
+                <div className="p-4 bg-red-50 dark:bg-red-950/15 border border-red-200 dark:border-red-900/30 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span className="shrink-0 mt-0.5 text-red-600 dark:text-red-400"><AlertTriangle size={18}/></span>
                   <div className="space-y-1">
                     <h4 className="font-bold text-xs text-red-800 dark:text-red-200">High Stress Alert detected</h4>
-                    <p className="text-slate-655 dark:text-slate-300 text-[11px] leading-relaxed">
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
                       Your stress level is at {currentProfile.stressLevel}/10. Switch off cramming and complete an Instant Calm breathing exercise or sleep calculation in the Toolbox.
                     </p>
                   </div>
                 </div>
               ) : (
-                <div className="p-4 bg-emerald-500/5 dark:bg-emerald-950/15 border border-emerald-500/20 rounded-xl flex items-start gap-3">
-                  <span className="text-lg shrink-0 mt-0.5">✓</span>
+                <div className="p-4 bg-emerald-50 dark:bg-emerald-950/15 border border-emerald-200 dark:border-emerald-900/30 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span className="shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-400"><CheckCircle size={18}/></span>
                   <div className="space-y-1">
                     <h4 className="font-bold text-xs text-emerald-800 dark:text-emerald-200 font-black">Optimal Stress Levels</h4>
-                    <p className="text-slate-655 dark:text-slate-300 text-[11px] leading-relaxed">
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
                       Your current stress level is under control. This is the optimal window to start study blocks in the AI Planner.
                     </p>
                   </div>
@@ -609,11 +610,11 @@ export const AICoach: React.FC<AICoachProps> = ({
 
               {/* Recommendation 2: Burnout */}
               {currentProfile.burnoutRiskScore && currentProfile.burnoutRiskScore > 50 ? (
-                <div className="p-4 bg-amber-500/5 dark:bg-amber-950/15 border border-amber-500/20 rounded-xl flex items-start gap-3">
-                  <span className="text-lg shrink-0 mt-0.5">🧘</span>
+                <div className="p-4 bg-amber-50 dark:bg-amber-950/15 border border-amber-200 dark:border-amber-900/30 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span className="shrink-0 mt-0.5 text-amber-600 dark:text-amber-400"><Bandage size={18}/></span>
                   <div className="space-y-1">
                     <h4 className="font-bold text-xs text-amber-800 dark:text-amber-200">Elevated Burnout Risk Index</h4>
-                    <p className="text-slate-655 dark:text-slate-300 text-[11px] leading-relaxed">
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
                       Burnout score is at {currentProfile.burnoutRiskScore}%. Lower session density, increase short break intervals, and log daily screen hours to manage fatigue.
                     </p>
                   </div>
@@ -622,21 +623,21 @@ export const AICoach: React.FC<AICoachProps> = ({
 
               {/* Recommendation 3: Habit Streak */}
               {currentProfile.studyStreak === 0 ? (
-                <div className="p-4 bg-indigo-500/5 dark:bg-indigo-950/15 border border-indigo-500/20 rounded-xl flex items-start gap-3">
-                  <span className="text-lg shrink-0 mt-0.5">🔥</span>
+                <div className="p-4 bg-slate-100 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span className="shrink-0 mt-0.5 text-slate-600 dark:text-slate-400"><Flame size={18}/></span>
                   <div className="space-y-1">
-                    <h4 className="font-bold text-xs text-indigo-800 dark:text-indigo-200 font-black">Habit Starter Routine</h4>
-                    <p className="text-slate-655 dark:text-slate-300 text-[11px] leading-relaxed">
+                    <h4 className="font-bold text-xs text-slate-800 dark:text-slate-200 font-black">Habit Starter Routine</h4>
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
                       Streak is at 0. Start a fresh baseline: execute a 15-minute Pomodoro timer or add and complete a routine assignment to launch your streak.
                     </p>
                   </div>
                 </div>
               ) : (
-                <div className="p-4 bg-indigo-500/5 dark:bg-indigo-950/15 border border-indigo-500/20 rounded-xl flex items-start gap-3">
-                  <span className="text-lg shrink-0 mt-0.5">⚡</span>
+                <div className="p-4 bg-slate-100 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span className="shrink-0 mt-0.5 text-slate-600 dark:text-slate-400"><Zap size={18}/></span>
                   <div className="space-y-1">
-                    <h4 className="font-bold text-xs text-indigo-800 dark:text-indigo-200 font-black">Streak Protection active</h4>
-                    <p className="text-slate-655 dark:text-slate-300 text-[11px] leading-relaxed">
+                    <h4 className="font-bold text-xs text-slate-800 dark:text-slate-200 font-black">Streak Protection active</h4>
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
                       You're carrying a {currentProfile.studyStreak} day streak. Complete a study event today to maintain and reinforce this habit loop.
                     </p>
                   </div>
@@ -645,11 +646,11 @@ export const AICoach: React.FC<AICoachProps> = ({
 
               {/* Recommendation 4: Exams */}
               {currentProfile.exams && currentProfile.exams.length > 0 ? (
-                <div className="p-4 bg-purple-500/5 dark:bg-purple-950/15 border border-purple-500/20 rounded-xl flex items-start gap-3">
-                  <span className="text-lg shrink-0 mt-0.5">📅</span>
+                <div className="p-4 bg-slate-100 dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-xl flex items-start gap-3 shadow-sm">
+                  <span className="shrink-0 mt-0.5 text-slate-600 dark:text-slate-400"><Calendar size={18}/></span>
                   <div className="space-y-1">
-                    <h4 className="font-bold text-xs text-purple-800 dark:text-purple-200">Exam Countdown optimizer</h4>
-                    <p className="text-slate-655 dark:text-slate-300 text-[11px] leading-relaxed">
+                    <h4 className="font-bold text-xs text-slate-800 dark:text-slate-200">Exam Countdown optimizer</h4>
+                    <p className="text-slate-700 dark:text-slate-300 text-[11px] leading-relaxed">
                       You have {currentProfile.exams.length} exams registered. Launch the AI Planner to schedule specific micro-study units for preparation.
                     </p>
                   </div>
@@ -662,25 +663,28 @@ export const AICoach: React.FC<AICoachProps> = ({
 
         {/* AI CHAT COACH TAB */}
         {activeTab === 'chat' && (
-          <div className="flex-1 flex flex-col h-full overflow-hidden min-h-[350px]">
+          <div className="flex-1 flex flex-col h-full overflow-hidden min-h-[350px] relative">
             {/* Header */}
-            <div className="p-2 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
-              <div className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
-                <span className="text-[9px] font-black uppercase text-slate-500 tracking-wider">AI Chat Coach Connection</span>
+            <div className="p-4 flex items-center justify-between border-b border-slate-200 dark:border-outline-variant/10 bg-slate-50 dark:bg-surface-container backdrop-blur-md z-10 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-800 dark:bg-slate-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-slate-900 dark:bg-white"></span>
+                </div>
+                <span className="text-[10px] font-bold uppercase text-slate-500 dark:text-slate-400 tracking-widest">Intelligence Core Active</span>
               </div>
             </div>
 
             {/* Chat Area */}
-            <div className="flex-1 overflow-y-auto py-3 space-y-3.5 scrollbar-hide overscroll-contain max-h-[260px] md:max-h-[300px]">
+            <div className="flex-1 overflow-y-auto py-5 px-4 md:px-6 space-y-4 scrollbar-hide overscroll-contain max-h-[260px] md:max-h-[300px]">
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} animate-slide-up`}>
-                  <div className={`flex ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start max-w-[90%]`}>
+                  <div className={`flex ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'} items-start max-w-[85%]`}>
                     <div className={`
-                      rounded-xl px-3 py-2 text-xs leading-relaxed shadow-sm backdrop-blur-sm transition-all duration-300
+                      rounded-2xl px-4 py-3 text-[13px] leading-relaxed shadow-sm transition-all duration-300 border
                       ${msg.role === 'user'
-                        ? 'bg-indigo-600 text-white rounded-tr-none border border-indigo-500'
-                        : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 rounded-tl-none border border-slate-100 dark:border-slate-700'}
+                        ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-br-sm border-transparent'
+                        : 'bg-white dark:bg-surface-container text-slate-800 dark:text-slate-200 rounded-bl-sm border-slate-200 dark:border-outline-variant/10'}
                       `}>
                       <div className="whitespace-pre-wrap font-medium">
                         {msg.text}
@@ -691,10 +695,10 @@ export const AICoach: React.FC<AICoachProps> = ({
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-700 rounded-xl rounded-tl-none px-3 py-2 shadow-sm flex items-center space-x-1">
-                    <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce"></div>
-                    <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce delay-75"></div>
-                    <div className="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce delay-150"></div>
+                  <div className="bg-white dark:bg-surface-container border border-slate-200 dark:border-outline-variant/10 rounded-xl rounded-tl-none px-3 py-2 shadow-sm flex items-center space-x-1">
+                    <div className="w-1.5 h-1.5 bg-slate-600 dark:bg-slate-400 rounded-full animate-bounce"></div>
+                    <div className="w-1.5 h-1.5 bg-slate-600 dark:bg-slate-400 rounded-full animate-bounce delay-75"></div>
+                    <div className="w-1.5 h-1.5 bg-slate-600 dark:bg-slate-400 rounded-full animate-bounce delay-150"></div>
                   </div>
                 </div>
               )}
@@ -702,21 +706,21 @@ export const AICoach: React.FC<AICoachProps> = ({
             </div>
 
             {/* Input Area */}
-            <div className="pt-2 border-t border-slate-200 dark:border-slate-805">
-              <form onSubmit={handleSend} className="flex gap-2 items-center">
+            <div className="p-3 border-t border-slate-200 dark:border-outline-variant/10 bg-slate-50 dark:bg-surface-container backdrop-blur-md z-10">
+              <form onSubmit={handleSend} className="flex gap-2 items-center bg-white dark:bg-background rounded-xl border border-slate-200 dark:border-outline-variant/10 shadow-sm p-1.5 focus-within:ring-2 focus-within:ring-slate-900 dark:focus-within:ring-white transition-all">
                 <input
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
-                  placeholder="Ask ILMORA Mentor..."
-                  className="flex-1 bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 rounded-lg px-3 h-10 outline-none focus:ring-2 focus:ring-indigo-500/20 border border-slate-200 dark:border-slate-700 text-xs transition-all shadow-sm"
+                  placeholder="Query Intelligence Core..."
+                  className="flex-1 bg-transparent text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 pl-3 h-10 outline-none text-sm"
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={isLoading || !input.trim()}
-                  className="bg-indigo-600 text-white rounded-lg px-4 h-10 font-bold text-xs uppercase tracking-wider hover:bg-indigo-700 transition-all shadow-sm flex items-center justify-center"
+                  className="shrink-0 h-10 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg px-6 font-bold text-xs uppercase tracking-wider hover:opacity-90 transition-all flex items-center justify-center disabled:opacity-50"
                 >
                   Send
                 </button>
@@ -725,6 +729,7 @@ export const AICoach: React.FC<AICoachProps> = ({
           </div>
         )}
 
+        </div>
       </div>
     </div>
   );

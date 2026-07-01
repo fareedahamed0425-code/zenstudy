@@ -166,9 +166,9 @@ export const AccountSwitcher: React.FC<AuthScreenProps> = ({ onGuestLogin }) => 
     if (view === 'list') {
         return (
             <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-                <div className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[2.5rem] shadow-2xl max-w-md w-full border border-slate-200 dark:border-slate-800 relative overflow-hidden animate-slide-up">
+                <div className="glass-panel p-8 md:p-12 rounded-[2.5rem] shadow-2xl max-w-md w-full relative overflow-hidden animate-slide-up glow-border">
                     <div className="text-center mb-8">
-                        <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-300 mb-2">
+                        <h1 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-300 mb-2 drop-shadow-glow-accent">
                             Welcome Back
                         </h1>
                         <p className="text-slate-500 dark:text-slate-400 font-medium">Choose an account to continue</p>

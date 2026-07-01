@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Navigation } from './components/Navigation';
+import { Home, Moon, Sun, Flame, Rocket, Calendar, FileText, GraduationCap, Snowflake, Hourglass } from 'lucide-react';
 import { AICoach } from './components/AICoach';
 import { StudyPlanGenerator } from './components/StudyPlanGenerator';
 import { NotesSimplifier } from './components/NotesSimplifier';
@@ -550,17 +551,17 @@ export const App: React.FC = () => {
     if (currentUser.lastActiveDate === yesterdayStr) {
       const hoursLeft = 24 - new Date().getHours();
       return (
-        <div className="bg-gradient-to-r from-amber-500/20 to-red-500/20 border border-amber-500/30 rounded-2xl p-4 flex items-center justify-between text-white shadow-sm animate-pulse">
+        <div className="bg-gradient-to-r from-amber-500/10 to-red-500/10 dark:from-amber-500/20 dark:to-red-500/20 border border-amber-500/30 rounded-2xl p-4 flex items-center justify-between text-amber-950 dark:text-white shadow-sm animate-pulse">
           <div className="flex items-center gap-3">
-            <span className="text-2xl animate-bounce">⏳</span>
+            <Hourglass className="w-8 h-8 animate-bounce text-amber-600 dark:text-amber-200" />
             <div>
               <h4 className="font-black text-sm">Streak Danger!</h4>
-              <p className="text-xs text-amber-200/90 font-medium">Your study streak expires in {hoursLeft} hours. Complete a study session or check off a task to keep it alive!</p>
+              <p className="text-xs text-amber-800 dark:text-amber-200/90 font-medium">Your study streak expires in {hoursLeft} hours. Complete a study session or check off a task to keep it alive!</p>
             </div>
           </div>
           <button 
             onClick={() => navigate('/toolbox')}
-            className="bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-sm"
+            className="bg-amber-600 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600 text-white font-bold text-xs px-4 py-2 rounded-xl transition-all shadow-sm"
           >
             Study Now
           </button>
@@ -586,17 +587,17 @@ export const App: React.FC = () => {
 
     if (canFreeze && (currentUser.studyStreak || 0) > 0) {
       return (
-        <div className="bg-gradient-to-r from-blue-600/25 to-indigo-600/25 border border-blue-500/30 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-white shadow-md animate-fade-in animate-pulse">
+        <div className="bg-gradient-to-r from-blue-600/10 to-indigo-600/10 dark:from-blue-600/25 dark:to-indigo-600/25 border border-blue-500/30 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-800 dark:text-white shadow-md animate-fade-in animate-pulse">
           <div className="flex items-center gap-3.5">
-            <span className="text-3xl">❄️</span>
+            <Snowflake className="w-8 h-8 text-blue-600 dark:text-blue-200" />
             <div>
-              <h4 className="font-black text-sm md:text-base text-white">Streak Restore Available!</h4>
-              <p className="text-xs text-blue-200 font-medium">Your study streak expired, but you can use your Streak Freeze to preserve your {currentUser.studyStreak} Day Streak!</p>
+              <h4 className="font-black text-sm md:text-base text-blue-900 dark:text-white">Streak Restore Available!</h4>
+              <p className="text-xs text-blue-800 dark:text-blue-200 font-medium">Your study streak expired, but you can use your Streak Freeze to preserve your {currentUser.studyStreak} Day Streak!</p>
             </div>
           </div>
           <button 
             onClick={handleActivateStreakFreeze}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-black text-xs px-5 py-2.5 rounded-xl transition-all shadow-sm active:scale-98"
+            className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-black text-xs px-5 py-2.5 rounded-xl transition-all shadow-sm active:scale-98"
           >
             Use Streak Freeze ({freezeCount} left)
           </button>
@@ -739,72 +740,74 @@ export const App: React.FC = () => {
         const todaysEvents = (currentUser.dailySchedule || []).filter(e => e.day === todayDayStr);
 
         return (
-          <div className="space-y-6 pb-12 animate-fade-in">
+          <div className="bento-grid pb-12 animate-fade-in max-w-6xl mx-auto">
             {/* Streak & Freeze Banners */}
-            {renderStreakFreezeBanner()}
+            <div className="col-span-12">
+              {renderStreakFreezeBanner()}
+            </div>
 
             {/* Compact Welcome Header Card */}
-            <div className="bg-gradient-to-br from-indigo-700 via-indigo-600 to-purple-600 text-white rounded-2xl p-4 md:p-5 shadow-sm relative overflow-hidden flex flex-col md:flex-row justify-between items-start md:items-center gap-4 min-h-[140px] md:min-h-[160px] lg:min-h-[185px]">
-              <div className="relative z-10 space-y-2">
-                <span className="inline-block px-2.5 py-0.5 bg-white/10 backdrop-blur-md rounded-full text-[8px] md:text-[9px] font-black tracking-wider uppercase border border-white/15 shadow-sm">Workspace active ✨</span>
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-black tracking-tighter leading-none">
+            <div className="col-span-12 lg:col-span-8 bento-card p-6 md:p-8 flex flex-col justify-between h-full min-h-[180px] bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-900/40 dark:to-purple-900/40 overflow-hidden relative">
+              <div className="relative z-10 space-y-4">
+                <span className="inline-block px-3 py-1 bg-indigo-500/10 dark:bg-white/5 backdrop-blur-md rounded-full text-[10px] font-black tracking-wider uppercase border border-indigo-500/20 dark:border-white/10 shadow-sm text-indigo-700 dark:text-indigo-300">Workspace active</span>
+                <h2 className="text-2xl md:text-4xl font-black tracking-tighter leading-none text-indigo-950 dark:text-white drop-shadow-glow">
                   Welcome Back, {currentUser.name}
                 </h2>
-                <div className="space-y-1 max-w-sm">
-                  <div className="flex justify-between items-center text-[10px] md:text-xs text-indigo-100 font-bold">
+                <div className="space-y-2 max-w-sm mt-4">
+                  <div className="flex justify-between items-center text-[11px] md:text-xs text-indigo-800 dark:text-indigo-200 font-bold">
                     <span>Goal: {hoursStudied.toFixed(1)} / {dailyGoal} Hours</span>
                     <span>{progressPercentage}%</span>
                   </div>
-                  <div className="w-full bg-white/15 h-2 rounded-full overflow-hidden border border-white/5">
-                    <div className="bg-white h-full transition-all duration-500" style={{ width: `${progressPercentage}%` }}></div>
+                  <div className="w-full bg-black/40 h-2.5 rounded-full overflow-hidden border border-white/10 shadow-inner">
+                    <div className="bg-gradient-to-r from-indigo-500 to-purple-500 h-full transition-all duration-1000 ease-out" style={{ width: `${progressPercentage}%` }}></div>
                   </div>
                 </div>
               </div>
+              <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-white/5 rounded-full -mr-32 -mt-32 blur-[60px] pointer-events-none"></div>
+            </div>
 
-              {/* Streak Pill */}
-              <div className="relative z-10 bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/15 flex items-center gap-2.5 shrink-0 self-stretch md:self-auto justify-center">
-                <span className="text-2xl animate-float">🔥</span>
-                <div>
-                  <h4 className="text-xs font-black uppercase tracking-wider text-amber-300">{streak} Days Streak</h4>
-                  <p className="text-[8px] font-bold text-indigo-100 mt-0.5 uppercase tracking-widest">All-time best: {bestStreakVal}</p>
-                </div>
+            {/* Streak Pill */}
+            <div className="col-span-12 sm:col-span-6 lg:col-span-4 bento-card p-6 flex flex-col items-center justify-center text-center gap-3 h-full min-h-[180px] bg-gradient-to-br from-amber-500/10 to-orange-500/10 dark:from-amber-900/20 dark:to-orange-900/20">
+              <Flame className="w-12 h-12 text-orange-500 animate-float" />
+              <div>
+                <h4 className="text-xl font-black uppercase tracking-wider text-amber-700 dark:text-amber-400 drop-shadow-glow">{streak} Days Streak</h4>
+                <p className="text-[10px] font-bold text-amber-600/80 dark:text-amber-200/60 mt-1 uppercase tracking-widest">All-time best: {bestStreakVal}</p>
               </div>
-
-              <div className="absolute top-0 right-0 w-[240px] h-[240px] bg-white/3 rounded-full -mr-24 -mt-24 blur-[45px]"></div>
             </div>
 
             {/* Quick Actions Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { id: Section.PLANNING, title: 'AI Planner', desc: 'Optimize roadmap', icon: '🚀', color: 'emerald' },
-                { id: Section.CALENDAR, title: 'Schedule', desc: 'Manage calendar', icon: '🗓️', color: 'indigo' },
-                { id: Section.NOTES, title: 'Note Archive', desc: 'Summarize notes', icon: '📝', color: 'amber' },
-                { id: Section.MINDSET, title: 'ILMORA Mentor', desc: 'Personal coaching', icon: '🎓', color: 'purple' },
-              ].map(action => (
+            {(() => {
+              const actions = [
+                { id: Section.PLANNING, title: 'AI Planner', desc: 'Optimize roadmap', icon: <Rocket size={24} />, color: 'emerald' },
+                { id: Section.CALENDAR, title: 'Schedule', desc: 'Manage calendar', icon: <Calendar size={24} />, color: 'indigo' },
+                { id: Section.NOTES, title: 'Note Archive', desc: 'Summarize notes', icon: <FileText size={24} />, color: 'amber' },
+                { id: Section.MINDSET, title: 'ILMORA Mentor', desc: 'Personal coaching', icon: <GraduationCap size={24} />, color: 'purple' },
+              ];
+              return actions.map(action => (
                 <button
                   key={action.id}
                   onClick={() => navigate(getPathFromSection(action.id))}
-                  className="glass p-3 rounded-xl border border-slate-200 dark:border-slate-800/85 hover:border-indigo-500/20 text-left transition-all duration-300 hover:shadow-sm flex items-center gap-3 group"
+                  className="col-span-6 md:col-span-3 bento-card p-4 hover:border-indigo-500/50 text-left flex flex-col items-center justify-center text-center gap-3 group"
                 >
-                  <div className={`w-9 h-9 rounded-lg bg-${action.color}-500/10 text-${action.color}-600 dark:text-${action.color}-400 flex items-center justify-center text-base shrink-0 group-hover:scale-105 transition-transform`}>
+                  <div className={`w-12 h-12 rounded-2xl bg-${action.color}-500/10 text-${action.color}-500 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-inner`}>
                     {action.icon}
                   </div>
-                  <div className="min-w-0">
-                    <h4 className="text-xs font-bold text-slate-800 dark:text-white leading-tight">{action.title}</h4>
-                    <p className="text-[9px] text-slate-405 dark:text-slate-400 font-medium truncate mt-0.5">{action.desc}</p>
+                  <div>
+                    <h4 className="text-xs font-black text-slate-800 dark:text-white uppercase tracking-wider">{action.title}</h4>
+                    <p className="text-[9px] text-slate-500 dark:text-slate-400 font-bold mt-1">{action.desc}</p>
                   </div>
                 </button>
-              ))}
-            </div>
+              ));
+            })()}
 
             {/* Two-Column Productivity Workspace */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div className="col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-2">
               
               {/* Left Column: Tasks and Agenda */}
-              <div className="lg:col-span-8 space-y-6">
+              <div className="col-span-12 lg:col-span-8 space-y-6">
                 
                 {/* Daily Checklist */}
-                <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl p-5 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-sm space-y-4">
+                <div className="bento-card p-6 space-y-5">
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="text-sm font-black uppercase text-slate-400 tracking-wider">Today's Tasks</h3>
@@ -1047,10 +1050,14 @@ export const App: React.FC = () => {
         );
       }
       case Section.CALENDAR:
-        return <CalendarManager userProfile={currentUser} onUpdateProfile={handleUpdateProfile} />;
+        return (
+          <div className="max-w-5xl mx-auto w-full animate-fade-in pb-12">
+            <CalendarManager userProfile={currentUser} onUpdateProfile={handleUpdateProfile} />
+          </div>
+        );
       case Section.PLANNING:
         return (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-6 animate-fade-in max-w-5xl mx-auto w-full pb-12">
             <div className="flex justify-between items-center">
               <h2 className="text-3xl font-extrabold tracking-tighter text-slate-900 dark:text-white">AI Planner</h2>
               <div className="bg-indigo-600 text-white px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest">Personalized Optimizer</div>
@@ -1060,33 +1067,39 @@ export const App: React.FC = () => {
         );
       case Section.NOTES:
         return (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-6 animate-fade-in max-w-5xl mx-auto w-full pb-12">
             <h2 className="text-3xl font-extrabold tracking-tighter text-slate-900 dark:text-white">Note Archive</h2>
             <NotesSimplifier />
           </div>
         );
       case Section.MINDSET:
         return (
-          <AICoach 
-            userProfile={currentUser} 
-            initialMessage={pendingAiMessage} 
-            onMessageHandled={() => setPendingAiMessage('')} 
-            onNavigate={(sec) => navigate(getPathFromSection(sec))} 
-            activeTab={activeTutorTab || 'overview'}
-            onTabChange={handleTutorTabChange}
-          />
+          <div className="flex-1 flex flex-col w-full h-full min-h-[600px] pb-4">
+            <AICoach 
+              userProfile={currentUser} 
+              initialMessage={pendingAiMessage} 
+              onMessageHandled={() => setPendingAiMessage('')} 
+              onNavigate={(sec) => navigate(getPathFromSection(sec))} 
+              activeTab={activeTutorTab || 'overview'}
+              onTabChange={handleTutorTabChange}
+            />
+          </div>
         );
       case Section.STRATEGIES:
-        return <StrategiesHub onAskAI={handleNavigateToAi} userProfile={currentUser} onUpdateProfile={handleUpdateProfile} onNavigate={(sec) => navigate(getPathFromSection(sec))} />;
+        return (
+          <div className="max-w-5xl mx-auto w-full animate-fade-in pb-12">
+            <StrategiesHub onAskAI={handleNavigateToAi} userProfile={currentUser} onUpdateProfile={handleUpdateProfile} onNavigate={(sec) => navigate(getPathFromSection(sec))} />
+          </div>
+        );
       case Section.PROFILE:
         return (
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-6 animate-fade-in max-w-5xl mx-auto w-full pb-12">
             <div className="flex justify-between items-center">
               <h2 className="text-[28px] font-extrabold tracking-tighter text-slate-900 dark:text-white">Profile Settings</h2>
               <div className="bg-indigo-600 text-white px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest">Student Profile</div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6 items-start">
               <div className="lg:col-span-4 flex justify-center">
                 <StudentIdentityCard
                   user={currentUser}
@@ -1154,7 +1167,7 @@ export const App: React.FC = () => {
         className="flex items-center gap-1.5 bg-white/60 dark:bg-slate-800/60 px-3 py-1.5 rounded-xl border border-white dark:border-slate-700/80 shadow-sm hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all group"
         title="Return to Dashboard"
       >
-        <span className="text-base group-hover:scale-110 transition-transform">🏠</span>
+        <Home size={16} className="group-hover:scale-110 transition-transform" />
         <span className="text-[10px] font-black uppercase tracking-wider text-slate-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">Home</span>
       </button>
     );
@@ -1223,131 +1236,78 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen bg-slate-50 dark:bg-slate-950 overflow-hidden relative selection:bg-indigo-500 selection:text-white transition-colors duration-500">
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-indigo-500/5 rounded-full blur-[150px] animate-blob"></div>
-        <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-purple-500/5 rounded-full blur-[150px] animate-blob" style={{ animationDelay: '2s' }}></div>
-      </div>
-      <div className="relative z-10 flex w-full h-full max-w-[1920px] mx-auto overflow-hidden">
-        <Navigation
-          currentPath={currentPath}
-          onNavigatePath={navigate}
-          isMobileMenuOpen={isMobileMenuOpen}
-          setIsMobileMenuOpen={setIsMobileMenuOpen}
-          theme={theme}
-          toggleTheme={toggleTheme}
-          onLogout={handleLogout}
-          isCollapsed={isSidebarCollapsed}
-          onToggleCollapse={handleToggleSidebar}
-        />
-
-        <main className="flex-1 flex flex-col h-screen overflow-hidden relative">
-          <header className="bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl border-b border-white/50 dark:border-slate-800/80 p-2 md:p-2.5 flex items-center justify-between z-20 transition-all duration-300">
-            <div className="flex items-center gap-3">
-              {/* Mobile Brand */}
-              <div className="md:hidden flex items-center gap-2">
-                <span className="text-xl animate-float">🧘</span>
-                <span className="font-black tracking-widest uppercase text-lg bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 font-['Cormorant_Garamond']">ILMORA</span>
-              </div>
-
-              {/* Persistent Navigation Breadcrumb for Easy Access */}
-              {renderBreadcrumbs()}
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="hidden lg:flex items-center gap-3 bg-indigo-600 text-white px-5 py-2.5 rounded-xl shadow-md transition-all">
-                <div className="flex flex-col items-center justify-center">
-                  <span className="text-xs font-black uppercase tracking-wider opacity-90 leading-none mb-1">Session</span>
-                  <span className="text-base font-mono font-black leading-none">
-                    {Math.floor(sessionTime / 60)}h {sessionTime % 60}m
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2 md:gap-3">
-                <div className="flex items-center gap-1.5 bg-white dark:bg-slate-800 p-1 rounded-xl border border-slate-200 dark:border-slate-700/80 shadow-sm transition-all group">
-                  <div className="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center overflow-hidden border border-indigo-100 dark:border-indigo-800 group-hover:rotate-3 transition-transform">
-                    {renderAvatar(currentUser, "text-[9px]")}
-                  </div>
-                  <button
-                    onClick={() => setIsEditingProfile(true)}
-                    className="w-7 h-7 flex items-center justify-center rounded-lg text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 transition-all"
-                    title="Profile Settings"
-                  >
-                    ⚙️
-                  </button>
-                </div>
-
-                <button
-                  onClick={handleLogout}
-                  className="hidden md:block bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-3.5 py-2 rounded-xl font-black text-[9px] uppercase tracking-wider hover:bg-red-600 hover:text-white transition-all shadow-sm active:scale-95"
-                >
-                  Log Out
-                </button>
-              </div>
-
-              <button onClick={() => setIsMobileMenuOpen(true)} className="md:hidden bg-indigo-600 text-white p-2.5 rounded-xl shadow-lg active:scale-95">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M4 6h16M4 12h16m-7 6h7" /></svg>
-              </button>
-            </div>
-          </header>
-
-          <div className={`flex-1 ${currentSection === Section.MINDSET ? 'overflow-hidden' : 'overflow-y-auto p-3 sm:p-4.5 lg:p-6'} scroll-smooth scrollbar-hide`}>
-            <div className={`${currentSection === Section.MINDSET ? 'h-full flex flex-col' : 'max-w-[1400px] mx-auto w-full min-h-full flex flex-col'}`}>
-              <div key={currentSection} className={`animate-slide-up flex-1 ${currentSection === Section.MINDSET ? 'h-full flex flex-col' : ''}`}>
-                {renderContent()}
-              </div>
-
-              {currentSection !== Section.MINDSET && (
-                <footer className="mt-12 text-center py-6 border-t border-slate-200 dark:border-slate-900">
-                  <div className="space-y-2">
-                    <p className="text-slate-500 dark:text-slate-400 font-black uppercase tracking-[0.2em] text-[10px]">
-                      © 2026 ILMORA
-                    </p>
-                    <p className="text-slate-400 dark:text-slate-600 text-[9px] font-bold uppercase tracking-[0.15em]">
-                      Academic Intelligence Platform
-                    </p>
-
-                    <div className="flex flex-wrap justify-center gap-3 mt-4">
-                      <a
-                        href="https://github.com/fareedahamed0425-code"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-slate-100/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm flex items-center gap-2 border border-transparent hover:border-indigo-500/20 group"
-                      >
-                        <span className="text-sm group-hover:scale-110 transition-transform">💻</span>
-                        <span>GitHub</span>
-                      </a>
-                      <a
-                        href="https://bafareedahamedportfolio.netlify.app/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-slate-100/50 dark:bg-slate-800/50 hover:bg-white dark:hover:bg-slate-800 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-wider text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400 transition-all shadow-sm flex items-center gap-2 border border-transparent hover:border-purple-500/20 group"
-                      >
-                        <span className="text-sm group-hover:scale-110 transition-transform">👤</span>
-                        <span>Portfolio</span>
-                      </a>
-                    </div>
-                  </div>
-                </footer>
+    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-background text-slate-900 dark:text-on-surface overflow-hidden relative selection:bg-primary-container selection:text-on-primary-container transition-colors duration-500">
+      
+      {/* Top Navigation */}
+      <header className="fixed top-0 w-full bg-white/80 dark:bg-surface/80 backdrop-blur-3xl z-50 border-b border-slate-200 dark:border-outline-variant/10">
+        <div className="w-full max-w-6xl mx-auto flex justify-between items-center px-3 md:px-8 h-16">
+          <div className="flex items-center gap-4">
+            <span className="font-display-lg-mobile md:font-display-lg text-lg md:text-xl font-bold tracking-tighter text-slate-900 dark:text-on-surface">ILMORA</span>
+            {renderBreadcrumbs()}
+          </div>
+        
+        <div className="flex items-center gap-3 md:gap-6">
+          <div className="hidden md:flex items-center gap-8 text-slate-500 dark:text-on-surface-variant font-label-sm">
+            <span className="text-indigo-600 dark:text-primary font-bold">Dashboard</span>
+            <span className="hover:opacity-80 transition-opacity cursor-pointer">Resources</span>
+            <span className="hover:opacity-80 transition-opacity cursor-pointer">Community</span>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            <button onClick={toggleTheme} className="text-slate-500 dark:text-on-surface-variant hover:text-indigo-600 dark:hover:text-primary transition-colors text-lg" title="Toggle Theme">
+              {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            </button>
+            <div 
+              className="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20 cursor-pointer"
+              onClick={() => setIsEditingProfile(true)}
+              title="Profile Settings"
+            >
+              {currentUser.avatarUrl ? (
+                <img src={currentUser.avatarUrl} alt="Profile" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full bg-surface-container flex items-center justify-center font-bold text-xs text-primary">{currentUser.name.charAt(0)}</div>
               )}
             </div>
+            <button onClick={handleLogout} className="text-xs font-bold uppercase tracking-widest text-error hover:text-error-container transition-colors ml-2 hidden md:block">
+              Log Out
+            </button>
           </div>
+        </div>
+        </div>
+      </header>
 
-          {isEditingProfile && (
-            <ProfileEditor user={currentUser} onSave={handleUpdateProfile} onCancel={() => setIsEditingProfile(false)} />
-          )}
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col w-full pt-20 md:pt-24 pb-24 md:pb-32 px-3 md:px-8 max-w-6xl mx-auto overflow-y-auto scrollbar-hide">
+        <div className="animate-fade-in flex-1 w-full flex flex-col">
+           {renderContent()}
+        </div>
+      </main>
 
-          {returningUserModal && (
-            <ReturningUserModal
-              daysAway={returningUserModal.daysAway}
-              previousStreak={returningUserModal.previousStreak}
-              type={returningUserModal.type}
-              onClose={() => setReturningUserModal(null)}
-            />
-          )}
-        </main>
-      </div>
+      {/* Floating Bottom Navigation */}
+      <Navigation
+        currentPath={currentPath}
+        onNavigatePath={navigate}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+        theme={theme}
+        toggleTheme={toggleTheme}
+        onLogout={handleLogout}
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={handleToggleSidebar}
+      />
+
+      {isEditingProfile && (
+        <ProfileEditor user={currentUser} onSave={handleUpdateProfile} onCancel={() => setIsEditingProfile(false)} />
+      )}
+
+      {returningUserModal && (
+        <ReturningUserModal
+          daysAway={returningUserModal.daysAway}
+          previousStreak={returningUserModal.previousStreak}
+          type={returningUserModal.type}
+          onClose={() => setReturningUserModal(null)}
+        />
+      )}
     </div>
   );
 };

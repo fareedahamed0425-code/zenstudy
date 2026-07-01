@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StudySession, PlannerFormData, UserProfile } from '../types';
 import { generateAiStudyPlan } from '../services/aiService';
+import { Pause, BookOpen, Rocket, Calendar, Activity, Leaf, Lightbulb } from 'lucide-react';
 
 interface StudyPlanGeneratorProps {
   userProfile?: UserProfile;
@@ -110,8 +111,8 @@ export const StudyPlanGenerator: React.FC<StudyPlanGeneratorProps> = ({ userProf
 
   const getIcon = (session: StudySession) => {
     const text = (session.subject + ' ' + session.topic).toLowerCase();
-    if (text.includes('break') || text.includes('rest') || text.includes('wellness')) return '⏸️';
-    return '📚';
+    if (text.includes('break') || text.includes('rest') || text.includes('wellness')) return <Pause size={18} />;
+    return <BookOpen size={18} />;
   };
 
   const isBreak = (session: StudySession) => 
@@ -119,21 +120,21 @@ export const StudyPlanGenerator: React.FC<StudyPlanGeneratorProps> = ({ userProf
     session.technique.toLowerCase().includes('wellness');
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-      <div className="lg:col-span-5 bg-white/70 dark:bg-slate-900/70 backdrop-blur-md p-4.5 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800/80 h-fit transition-all duration-300">
-        <h3 className="text-lg font-bold text-slate-800 dark:text-white mb-1">AI Schedule Builder</h3>
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
+      <div className="lg:col-span-5 bento-card p-5 h-full">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">AI Schedule Builder</h3>
         <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-4.5 font-medium">Personalized and intelligent. Built using the Google Gemini model.</p>
         
         <form onSubmit={handleSubmit} className="space-y-3.5">
           <div className="group">
-            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors">
+            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 group-focus-within:text-slate-900 dark:group-focus-within:text-white transition-colors">
                 What do you need to study? (Comma separated)
             </label>
             <textarea
               required
               rows={2}
               placeholder="e.g. Calculus, Spanish History, Biology"
-              className="w-full bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all shadow-inner resize-none text-xs"
+              className="w-full bg-slate-50 dark:bg-surface-container text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200 dark:border-outline-variant/10 rounded-lg px-3 py-2 focus:ring-2 focus:ring-slate-900 dark:focus:ring-white outline-none transition-all shadow-sm resize-none text-xs"
               value={formData.subjects}
               onChange={e => setFormData({...formData, subjects: e.target.value})}
               onKeyDown={handleKeyDown}
@@ -141,14 +142,14 @@ export const StudyPlanGenerator: React.FC<StudyPlanGeneratorProps> = ({ userProf
           </div>
 
           <div className="group">
-            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors">
+            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 group-focus-within:text-slate-900 dark:group-focus-within:text-white transition-colors">
                 How many hours are you available?
             </label>
             <textarea
               required
               rows={1}
               placeholder="e.g. 4 hours"
-              className="w-full bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all shadow-inner resize-none text-xs"
+              className="w-full bg-slate-50 dark:bg-surface-container text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200 dark:border-outline-variant/10 rounded-lg px-3 py-2 focus:ring-2 focus:ring-slate-900 dark:focus:ring-white outline-none transition-all shadow-sm resize-none text-xs"
               value={formData.availability}
               onChange={e => setFormData({...formData, availability: e.target.value})}
               onKeyDown={handleKeyDown}
@@ -156,13 +157,13 @@ export const StudyPlanGenerator: React.FC<StudyPlanGeneratorProps> = ({ userProf
           </div>
 
           <div className="group">
-            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 group-focus-within:text-indigo-600 dark:group-focus-within:text-indigo-400 transition-colors">
+            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1 group-focus-within:text-slate-900 dark:group-focus-within:text-white transition-colors">
                 Any preferences? (Optional)
             </label>
             <textarea
               rows={1}
               placeholder="e.g. Hardest first, include frequent breaks, night study style"
-              className="w-full bg-white dark:bg-slate-800 text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all shadow-inner resize-none text-xs"
+              className="w-full bg-slate-50 dark:bg-surface-container text-slate-800 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 border border-slate-200 dark:border-outline-variant/10 rounded-lg px-3 py-2 focus:ring-2 focus:ring-slate-900 dark:focus:ring-white outline-none transition-all shadow-sm resize-none text-xs"
               value={formData.preferences}
               onChange={e => setFormData({...formData, preferences: e.target.value})}
               onKeyDown={handleKeyDown}
@@ -172,59 +173,59 @@ export const StudyPlanGenerator: React.FC<StudyPlanGeneratorProps> = ({ userProf
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold h-[44px] rounded-lg hover:shadow-sm transition-all disabled:opacity-50 active:scale-98 flex items-center justify-center text-xs"
+            className="w-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold h-[44px] rounded-lg hover:shadow-sm transition-all disabled:opacity-50 active:scale-98 flex items-center justify-center gap-2 text-xs"
           >
-            {loading ? 'Designing Schedule...' : '🚀 Build Instant Plan'}
+            {loading ? 'Designing Schedule...' : <><Rocket size={16}/> Build Instant Plan</>}
           </button>
         </form>
         {error && <p className="text-red-500 text-xs mt-3 bg-red-50 p-2 rounded-lg border border-red-100 text-center">{error}</p>}
       </div>
 
-      <div className="lg:col-span-7 space-y-4">
+      <div className="lg:col-span-7 space-y-4 md:space-y-6 h-full">
         {!plan && !loading && (
-            <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-5 min-h-[290px] bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm">
-                <span className="text-3xl mb-2 opacity-35">📅</span>
+            <div className="h-full flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 border border-dashed border-slate-200 dark:border-outline-variant/20 rounded-2xl p-5 min-h-[290px] bg-white/30 dark:bg-surface-container/30 backdrop-blur-sm">
+                <span className="mb-2 text-slate-300 dark:text-slate-600"><Calendar size={32}/></span>
                 <p className="font-semibold text-xs">Your optimized schedule will appear here.</p>
             </div>
         )}
 
         {loading && (
-             <div className="h-full flex flex-col items-center justify-center text-secondary border border-dashed border-secondary/20 rounded-2xl p-5 min-h-[290px] bg-emerald-50/20 dark:bg-emerald-900/5 backdrop-blur-sm animate-pulse">
-             <div className="text-3xl mb-2 opacity-40">🧬</div>
-             <p className="font-bold text-sm text-emerald-700 dark:text-emerald-400">Calculating Optimizer...</p>
+             <div className="h-full flex flex-col items-center justify-center text-slate-500 border border-dashed border-slate-200 dark:border-outline-variant/20 rounded-2xl p-5 min-h-[290px] bg-slate-50/50 dark:bg-surface-container/50 backdrop-blur-sm animate-pulse">
+             <span className="mb-2 text-slate-400 dark:text-slate-500"><Activity size={32}/></span>
+             <p className="font-bold text-sm text-slate-700 dark:text-slate-300">Calculating Optimizer...</p>
          </div>
         )}
 
         {plan && (
-          <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden animate-slide-up">
-             <div className="p-3.5 bg-slate-50/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-700 flex justify-between items-center backdrop-blur-sm">
-                <h3 className="font-bold text-slate-800 dark:text-white text-sm">Daily Roadmap</h3>
-                <span className="text-[9px] bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 px-2 py-0.5 rounded-full font-bold shadow-sm">{plan.length} Blocks</span>
+          <div className="bento-card overflow-hidden animate-slide-up">
+             <div className="p-3.5 bg-slate-50/80 dark:bg-surface-container/30 border-b border-slate-100 dark:border-outline-variant/10 flex justify-between items-center backdrop-blur-sm">
+                <h3 className="font-bold text-slate-900 dark:text-white text-sm">Daily Roadmap</h3>
+                <span className="text-[9px] bg-slate-100 dark:bg-surface-bright text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded-full font-bold shadow-sm">{plan.length} Blocks</span>
              </div>
-             <div className="divide-y divide-slate-100 dark:divide-slate-800 max-h-[420px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
+             <div className="divide-y divide-slate-100 dark:divide-outline-variant/10 max-h-[420px] overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
                 {plan.map((session, idx) => (
                     <div 
                         key={idx} 
                         className={`p-3.5 transition-all flex items-start gap-3.5 animate-slide-up group
-                        ${isBreak(session) ? 'bg-emerald-50/20 dark:bg-emerald-900/5 hover:bg-emerald-50/40' : 'hover:bg-slate-50/50 dark:hover:bg-slate-800/30'}
+                        ${isBreak(session) ? 'bg-slate-50/50 dark:bg-surface-container/50 hover:bg-slate-100/50 dark:hover:bg-surface-bright/50' : 'hover:bg-slate-50 dark:hover:bg-surface-container'}
                     `}>
                         <div className="flex-shrink-0 w-16 text-center pt-0.5 flex flex-col items-center">
-                            <span className="block font-bold text-slate-800 dark:text-white text-[8px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded shadow-sm w-full mb-1 leading-normal">
+                            <span className="block font-bold text-slate-900 dark:text-white text-[8px] bg-white dark:bg-background border border-slate-200 dark:border-outline-variant/20 px-1.5 py-0.5 rounded shadow-sm w-full mb-1 leading-normal">
                                 {session.timeRange}
                             </span>
-                            <span className="text-xl mt-1 transform group-hover:scale-105 transition-transform duration-300">{getIcon(session)}</span>
+                            <span className="text-slate-500 dark:text-slate-400 mt-1 transform group-hover:scale-105 transition-transform duration-300">{getIcon(session)}</span>
                         </div>
                         <div className="flex-1">
-                            <h4 className={`font-bold text-sm flex items-center gap-1.5 ${isBreak(session) ? 'text-emerald-800 dark:text-emerald-400' : 'text-slate-800 dark:text-slate-100'}`}>
+                            <h4 className={`font-bold text-sm flex items-center gap-1.5 ${isBreak(session) ? 'text-slate-600 dark:text-slate-400' : 'text-slate-900 dark:text-white'}`}>
                                 {session.subject}
                             </h4>
                             <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium mb-1">{session.topic}</p>
                             
-                            <div className="flex gap-1.5 flex-wrap">
-                                <span className={`text-[9px] px-1.5 py-0.5 rounded-md border font-semibold shadow-sm ${isBreak(session) ? 'bg-emerald-50/60 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 border-emerald-100/55 dark:border-emerald-800' : 'bg-indigo-50/60 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 border-indigo-100/55 dark:border-indigo-800'}`}>
-                                    {isBreak(session) ? '🌿' : '💡'} {session.technique}
+                            <div className="flex gap-1.5 flex-wrap items-center">
+                                <span className={`flex items-center gap-1 text-[9px] px-1.5 py-0.5 rounded-md border font-semibold shadow-sm ${isBreak(session) ? 'bg-slate-50 dark:bg-surface-container text-slate-600 dark:text-slate-400 border-slate-200 dark:border-outline-variant/10' : 'bg-slate-100 dark:bg-surface-bright text-slate-800 dark:text-white border-slate-200 dark:border-outline-variant/20'}`}>
+                                    {isBreak(session) ? <Leaf size={10}/> : <Lightbulb size={10}/>} {session.technique}
                                 </span>
-                                <span className="text-[9px] text-slate-400 border border-slate-200 dark:border-slate-700 px-1.5 py-0.5 rounded-md">{session.duration}</span>
+                                <span className="text-[9px] text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-outline-variant/10 px-1.5 py-0.5 rounded-md">{session.duration}</span>
                             </div>
                         </div>
                     </div>
