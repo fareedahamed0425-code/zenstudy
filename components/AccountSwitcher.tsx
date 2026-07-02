@@ -119,12 +119,7 @@ export const AccountSwitcher: React.FC<AuthScreenProps> = ({ onGuestLogin }) => 
         setShowDevBypass(false);
 
         try {
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            if (isMobile) {
-                await signInWithRedirect(auth, appleProvider);
-            } else {
-                await signInWithPopup(auth, appleProvider);
-            }
+            await signInWithPopup(auth, appleProvider);
         } catch (err: any) {
             console.error("Apple login error:", err);
             if (err.code === 'auth/popup-closed-by-user') {

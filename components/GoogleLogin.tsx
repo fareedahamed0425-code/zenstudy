@@ -7,12 +7,7 @@ import { auth, googleProvider, signInWithPopup, signInWithRedirect } from "../fi
 const GoogleLogin = () => {
   const loginWithGoogle = async () => {
     try {
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-      if (isMobile) {
-        await signInWithRedirect(auth, googleProvider);
-      } else {
-        await signInWithPopup(auth, googleProvider);
-      }
+      await signInWithPopup(auth, googleProvider);
     } catch (error: any) {
       console.error("Google Login Error:", error);
       if (error.code !== 'auth/popup-closed-by-user') {
