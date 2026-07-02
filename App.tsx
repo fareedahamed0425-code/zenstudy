@@ -1276,7 +1276,7 @@ export const App: React.FC = () => {
                 <div className="w-full h-full bg-surface-container flex items-center justify-center font-bold text-xs text-primary">{currentUser.name.charAt(0)}</div>
               )}
             </div>
-            <button onClick={handleLogout} className="text-xs font-bold uppercase tracking-widest text-error hover:text-error-container transition-colors ml-2 hidden md:block">
+            <button onClick={handleLogout} className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-error hover:text-error-container transition-colors ml-2">
               Log Out
             </button>
           </div>
