@@ -45,7 +45,7 @@ export const MoodCheckIn: React.FC<MoodCheckInProps> = ({ lastCheckInDate, onMoo
               <button
                 key={m.label}
                 onClick={() => handleMoodClick(m.label)}
-                className={`flex-1 md:flex-initial px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 border rounded-lg text-xs font-bold text-slate-700 dark:text-slate-300 transition-all flex items-center justify-center gap-1.5 active:scale-98 ${m.color}`}
+                className={`px-3 py-1.5 bg-white/50 dark:bg-slate-800/50 border rounded-lg text-xs font-bold text-slate-700 dark:text-slate-300 transition-all flex items-center justify-center gap-1.5 active:scale-98 ${m.color}`}
               >
                 <span>{m.icon}</span>
                 <span>{m.label}</span>

@@ -115,8 +115,13 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onCancel }) 
   const isUrl = (str: string) => str && (str.startsWith('http://') || str.startsWith('https://') || str.startsWith('data:image/'));
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-xl w-full p-8 relative overflow-hidden flex flex-col max-h-[90vh] border border-slate-200 dark:border-slate-800 animate-slide-up">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col items-center py-12 px-4 relative overflow-hidden">
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-indigo-500/10 dark:bg-indigo-900/20 blur-[100px] animate-blob"></div>
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full bg-purple-500/10 dark:bg-purple-900/20 blur-[100px] animate-blob" style={{ animationDelay: '2s' }}></div>
+      </div>
+
+      <div className="w-full max-w-2xl bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-800/80 p-8 md:p-12 relative z-10 overflow-hidden flex flex-col max-h-[90vh] animate-slide-up">
         
         {/* Progress Bar */}
         <div className="absolute top-0 left-0 w-full h-1.5 bg-slate-100 dark:bg-slate-800">
@@ -188,7 +193,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onCancel }) 
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
+                    className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
                     placeholder="Fareed Ahamed"
                     required
                   />
@@ -200,7 +205,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onCancel }) 
                     type="text"
                     value={university}
                     onChange={(e) => setUniversity(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
+                    className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
                     placeholder="ILMORA Institute"
                   />
                 </div>
@@ -211,7 +216,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onCancel }) 
                     type="text"
                     value={course}
                     onChange={(e) => setCourse(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
+                    className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
                     placeholder="Cyber Security"
                   />
                 </div>
@@ -221,7 +226,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onCancel }) 
                   <select
                     value={semester}
                     onChange={(e) => setSemester(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
+                    className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
                   >
                     {['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6', 'Semester 7', 'Semester 8'].map(s => (
                       <option key={s} value={s}>{s}</option>
@@ -238,7 +243,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onCancel }) 
                     max="10"
                     value={targetCGPA}
                     onChange={(e) => setTargetCGPA(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
+                    className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
                     placeholder="3.8"
                   />
                 </div>
@@ -251,7 +256,7 @@ export const Onboarding: React.FC<OnboardingProps> = ({ onComplete, onCancel }) 
                     max="24"
                     value={dailyStudyGoal}
                     onChange={(e) => setDailyStudyGoal(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
+                    className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white font-medium text-sm"
                     placeholder="3"
                   />
                 </div>

@@ -272,6 +272,7 @@ export const App: React.FC = () => {
   };
 
   const [currentUser, setCurrentUser] = useState<UserProfile | null>(null);
+  const [authUser, setAuthUser] = useState<any>(null);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -383,14 +384,23 @@ export const App: React.FC = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       setIsLoadingAuth(true);
+      setAuthUser(user);
       if (user) {
-        const profile = await getUserProfile(user.uid);
-        if (profile) {
-          setCurrentUser(profile);
-          setIsOnboarding(false);
-        } else {
+        try {
+          const profile = await getUserProfile(user.uid);
+          if (profile) {
+            setCurrentUser(profile);
+            setIsOnboarding(false);
+          } else {
+            setIsOnboarding(true);
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+          // If profile fetch fails (e.g. permission denied or network error), treat as new user to allow onboarding or retry
           setIsOnboarding(true);
         }
+      } else {
+        setCurrentUser(null);
       }
       setIsLoadingAuth(false);
     });
@@ -723,7 +733,7 @@ export const App: React.FC = () => {
     return <LegalConsentModal onConsent={() => setHasConsent(true)} />;
   }
 
-  if (auth.currentUser && isOnboarding) return <Onboarding onComplete={handleCreateProfile} />;
+  if (authUser && isOnboarding) return <Onboarding onComplete={handleCreateProfile} />;
   if (!currentUser) return <AccountSwitcher onGuestLogin={handleGuestLogin} />;
 
   const renderContent = () => {
@@ -804,7 +814,7 @@ export const App: React.FC = () => {
             <div className="col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start mt-2">
               
               {/* Left Column: Tasks and Agenda */}
-              <div className="col-span-12 lg:col-span-8 space-y-6">
+              <div className="lg:col-span-8 space-y-6">
                 
                 {/* Daily Checklist */}
                 <div className="bento-card p-6 space-y-5">
@@ -1249,8 +1259,6 @@ export const App: React.FC = () => {
         <div className="flex items-center gap-3 md:gap-6">
           <div className="hidden md:flex items-center gap-8 text-slate-500 dark:text-on-surface-variant font-label-sm">
             <span className="text-indigo-600 dark:text-primary font-bold">Dashboard</span>
-            <span className="hover:opacity-80 transition-opacity cursor-pointer">Resources</span>
-            <span className="hover:opacity-80 transition-opacity cursor-pointer">Community</span>
           </div>
           
           <div className="flex items-center gap-3">

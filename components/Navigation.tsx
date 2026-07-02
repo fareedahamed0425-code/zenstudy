@@ -54,16 +54,16 @@ export const Navigation: React.FC<NavigationProps> = ({
           <button
             key={item.path}
             onClick={() => onNavigatePath(item.path)}
-            className={`flex flex-col items-center justify-center rounded-full p-2.5 md:p-3 transition-transform duration-200 active:scale-95 group relative shrink-0 ${
+            className={`flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full transition-all duration-200 active:scale-95 group relative shrink-0 ${
               isActive
                 ? 'bg-primary-container text-on-primary-container drop-shadow-glow-primary scale-105'
                 : 'text-on-surface-variant hover:bg-surface-variant/50'
             }`}
             title={item.label}
           >
-            <span className="text-xl leading-none">{item.icon}</span>
+            <span className={`text-xl leading-none flex items-center justify-center ${isActive ? '-translate-y-0.5' : ''}`}>{item.icon}</span>
             {isActive && (
-              <span className="absolute -bottom-1 w-1.5 h-1.5 bg-primary rounded-full animate-pulse shadow-sm"></span>
+              <span className="absolute bottom-1.5 w-1 h-1 bg-primary rounded-full animate-pulse shadow-sm"></span>
             )}
             
             {/* Tooltip on Hover */}

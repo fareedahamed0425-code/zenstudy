@@ -242,8 +242,13 @@ export const AccountSwitcher: React.FC<AuthScreenProps> = ({ onGuestLogin }) => 
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[2.5rem] shadow-2xl max-w-lg w-full border border-slate-200 dark:border-slate-800 relative overflow-hidden animate-slide-up">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden">
+            <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
+                <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-indigo-500/10 dark:bg-indigo-900/20 blur-[100px] animate-blob"></div>
+                <div className="absolute top-60 -left-40 w-[500px] h-[500px] rounded-full bg-purple-500/10 dark:bg-purple-900/20 blur-[100px] animate-blob" style={{ animationDelay: '2s' }}></div>
+            </div>
+
+            <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] shadow-2xl max-w-lg w-full border border-white/20 dark:border-slate-800/80 relative overflow-hidden animate-slide-up z-10">
 
                 <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl -ml-16 -mb-16 pointer-events-none"></div>
@@ -291,7 +296,7 @@ export const AccountSwitcher: React.FC<AuthScreenProps> = ({ onGuestLogin }) => 
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white"
+                                className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white"
                                 placeholder="you@school.edu"
                                 required
                             />
@@ -302,7 +307,7 @@ export const AccountSwitcher: React.FC<AuthScreenProps> = ({ onGuestLogin }) => 
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white"
+                                className="w-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border border-slate-200 dark:border-slate-700/50 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white"
                                 placeholder="••••••••"
                                 required
                             />
